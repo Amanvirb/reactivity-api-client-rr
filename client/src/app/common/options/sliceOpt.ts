@@ -1,0 +1,13 @@
+export const idle = "Idle";
+export const pending = "Pending";
+export const joinActivityPending = "JoinActivityPending";
+export const userPhotoUploadPending = "userPhotoUploadPending";
+export const deleteUserPhotoPending = "deleteUserPhotoPending";
+export const setMainPhotoPending = "setMainPhotoPending";
+export const editCreateActivityPending = "editCreateActivityPending";
+export const editActivityIdle = "editActivityIdle";
+export const registerPending = "registerPending";
+export const loginPending = "loginPending";
+export const editProfilePending="editProfilePending";
+export const userProfileUpdateIdle="userProfileUpdateIdle";
+export const deleteActivityPending="deleteActivityPending";
