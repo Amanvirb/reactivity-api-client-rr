@@ -111,6 +111,7 @@ const useAxios = () => {
   };
 
   const createActivityHandler = async (activity: FieldValues) => {
+    console.log("Create activity values", activity);
     await dispatch(createActivityAsync(activity)).then(() =>
       dispatch(fetchActivityAsync()).then(() => router.navigate(`/activities`))
     );

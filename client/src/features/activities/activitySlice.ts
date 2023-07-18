@@ -141,7 +141,7 @@ function initParams() {
 }
 function initActivityDetail() {
   return {
-    id: uuidv4(),
+    id: "",
     title: " ",
     date: new Date(),
     description: " ",
