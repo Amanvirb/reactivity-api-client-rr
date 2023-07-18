@@ -11,3 +11,4 @@ export const loginPending = "loginPending";
 export const editProfilePending="editProfilePending";
 export const userProfileUpdateIdle="userProfileUpdateIdle";
 export const deleteActivityPending="deleteActivityPending";
+export const addBlogPending = "addBlogPending";

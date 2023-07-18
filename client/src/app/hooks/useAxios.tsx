@@ -25,6 +25,11 @@ import {
 } from "../../features/users/account/accountSlice";
 import { FieldValues } from "react-hook-form";
 import { router } from "../layout/Routes";
+import {
+  deleteBlog,
+  editBlog,
+  setBlogList,
+} from "../../features/blog/blogSlice";
 
 const useAxios = () => {
   const dispatch = useAppDispatch();
@@ -47,8 +52,12 @@ const useAxios = () => {
     activityDetail,
     activityStatus,
     formActivityState,
-    formActivityStateStatus
+    formActivityStateStatus,
   } = useAppSelector((state) => state.activity);
+
+  const { blogStatus, blogList, loading } = useAppSelector(
+    (state) => state.blog
+  );
 
   const getActivityList = () => {
     dispatch(fetchActivityAsync());
@@ -103,22 +112,29 @@ const useAxios = () => {
   };
 
   const updateActivityHandler = async (activity: FieldValues) => {
-
     await dispatch(updateActivityAsync(activity)).then(() => {
       router.navigate(`/activitydetail/${activity.id}`);
     });
-
   };
 
   const createActivityHandler = async (activity: FieldValues) => {
-    console.log("Create activity values", activity);
     await dispatch(createActivityAsync(activity)).then(() =>
       dispatch(fetchActivityAsync()).then(() => router.navigate(`/activities`))
     );
   };
 
+  const addBlogHandler = (blog: FieldValues) => {
+    // dispatch(addBlog(blog));
+    dispatch(setBlogList(blog));
+  };
+  const deleteBlogHandler = (id: string) => {
+    dispatch(deleteBlog(id));
+  };
+  const updateBlogHandler = (id: string) => {
+    dispatch(editBlog(id));
+  };
   const deleteActivityAsyncHandler = (activityId: string) => {
-    dispatch(deleteActivityAsync(activityId)).then(()=>{
+    dispatch(deleteActivityAsync(activityId)).then(() => {
       dispatch(fetchActivityAsync());
     });
   };
@@ -142,6 +158,11 @@ const useAxios = () => {
     profileStatus,
     formActivityState,
     formActivityStateStatus,
+    blogList,
+    blogStatus,
+    loading,
+    updateBlogHandler,
+    deleteBlogHandler,
     getActivityList,
     getActivityDetail,
     attendActivity,
@@ -158,6 +179,7 @@ const useAxios = () => {
     updateActivityHandler,
     createActivityHandler,
     deleteActivityAsyncHandler,
+    addBlogHandler,
   };
 };
 
