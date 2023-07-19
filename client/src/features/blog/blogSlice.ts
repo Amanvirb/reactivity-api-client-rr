@@ -5,12 +5,14 @@ import { router } from "../../app/layout/Routes";
 
 interface BlogState {
   blogList: Blog[];
+  blog: Blog | null;
   blogStatus: string;
   loading: boolean;
 }
 
 const initialState: BlogState = {
   blogList: [],
+  blog: null,
   blogStatus: idle,
   loading: true,
 };
@@ -42,11 +44,13 @@ export const blogSlice = createSlice({
     },
     deleteBlog: (state, action) => {
       const itemIndex = state.blogList.findIndex(
-        (x) => x.id === action.payload.id
+        (x) => x.id === action.payload
       );
-      if (itemIndex === undefined) return;
+      console.log("id is :", itemIndex);
+      // console.log("id is :", action.payload);
+      if (itemIndex === undefined || itemIndex < 0) return;
 
-      if (itemIndex !== undefined) {
+      if (itemIndex >= 0) {
         state.blogList.splice(itemIndex, 1);
       }
     },
@@ -54,13 +58,23 @@ export const blogSlice = createSlice({
       const itemIndex = state.blogList.findIndex(
         (x) => x.id === action.payload.id
       );
-      if (itemIndex === undefined) return;
+      console.log("payload is", action.payload);
+      if (itemIndex === undefined || itemIndex < 0) return;
 
       if (itemIndex !== undefined) {
-        state.blogList[itemIndex].category = action.payload.category;
-        state.blogList[itemIndex].description = action.payload.description;
-        state.blogList[itemIndex].title = action.payload.title;
-        state.blogList[itemIndex].isPublish = action.payload.isPublish;
+        // state.blogList[itemIndex].category = action.payload.category;
+        // state.blogList[itemIndex].description = action.payload.description;
+        // state.blogList[itemIndex].title = action.payload.title;
+        // state.blogList[itemIndex].isPublish = action.payload.isPublish;
+        
+        state.blogList[itemIndex]=action.payload;
+        router.navigate(`/blogdetail/${action.payload.id}`);
+      }
+    },
+    setBlogDetail: (state, action) => {
+      const currentBlog = state.blogList.find((x) => x.id === action.payload);
+      if (currentBlog) {
+        state.blog = currentBlog;
       }
     },
   },
@@ -82,4 +96,5 @@ export const blogSlice = createSlice({
   //   },
 });
 
-export const { setBlogList, deleteBlog, editBlog } = blogSlice.actions;
+export const { setBlogList, deleteBlog, editBlog, setBlogDetail } =
+  blogSlice.actions;

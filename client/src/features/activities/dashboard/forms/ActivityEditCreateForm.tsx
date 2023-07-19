@@ -20,7 +20,6 @@ import { useEffectOnce } from "usehooks-ts";
 
 registerLocale("es", es);
 
-
 const ActivityEditCreateForm = () => {
   let { id } = useParams<{ id: string }>();
 
@@ -99,8 +98,6 @@ const ActivityEditCreateForm = () => {
     const newData = { ...data, date: new Date(data.date).toISOString() };
     if (id) {
       updateActivityHandler(newData);
-      console.log("Reset form");
-      reset();
     } else {
       createActivityHandler(newData);
     }

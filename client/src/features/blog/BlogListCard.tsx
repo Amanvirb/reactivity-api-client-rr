@@ -8,14 +8,13 @@ import {
   Tooltip,
 } from "@mui/material";
 import React from "react";
-import { router } from "../../app/layout/Routes";
+import { router, routes } from "../../app/layout/Routes";
 import { ActivityAttendee } from "../../app/models/activity";
 import { Profile } from "../../app/models/profile";
 import UserPng from "../../app/assets/user.png";
 import { Blog } from "../../app/models/blog";
 import CommonButton from "../../app/common/CommonButton";
 import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
 import useAxios from "../../app/hooks/useAxios";
 
 interface BlogListProps {
@@ -60,13 +59,8 @@ const BlogListCard = ({ blog }: BlogListProps) => {
         // spacing={{ xs: 1, sm: 2, md: 4 }}
         padding={2}
       >
-        <Tooltip
-          title="Update Blog"
-          onClick={() => router.navigate("/editblogform")}
-        >
-          <EditIcon />
-        </Tooltip>
-        <CommonButton text="View" />
+       
+        <CommonButton onClickHandler={()=>router.navigate(`/blogdetail/${blog.id}`)} text="View" />
         <Tooltip title="Delete Blog" onClick={() => deleteBlogHandler(blog.id)}>
           <DeleteIcon sx={{ color: "#21b6af" }} />
         </Tooltip>

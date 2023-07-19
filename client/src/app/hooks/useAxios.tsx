@@ -28,6 +28,7 @@ import { router } from "../layout/Routes";
 import {
   deleteBlog,
   editBlog,
+  setBlogDetail,
   setBlogList,
 } from "../../features/blog/blogSlice";
 
@@ -55,7 +56,7 @@ const useAxios = () => {
     formActivityStateStatus,
   } = useAppSelector((state) => state.activity);
 
-  const { blogStatus, blogList, loading } = useAppSelector(
+  const { blogStatus, blogList, loading, blog } = useAppSelector(
     (state) => state.blog
   );
 
@@ -130,8 +131,11 @@ const useAxios = () => {
   const deleteBlogHandler = (id: string) => {
     dispatch(deleteBlog(id));
   };
-  const updateBlogHandler = (id: string) => {
-    dispatch(editBlog(id));
+  const currentBlogHandler = (blogId: string) => {
+    dispatch(setBlogDetail(blogId));
+  };
+  const updateBlogHandler = (updatedBlog: FieldValues) => {
+    dispatch(editBlog(updatedBlog));
   };
   const deleteActivityAsyncHandler = (activityId: string) => {
     dispatch(deleteActivityAsync(activityId)).then(() => {
@@ -161,6 +165,8 @@ const useAxios = () => {
     blogList,
     blogStatus,
     loading,
+    blog,
+    currentBlogHandler,
     updateBlogHandler,
     deleteBlogHandler,
     getActivityList,

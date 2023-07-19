@@ -16,22 +16,24 @@ import { Blog } from "../../../app/models/blog";
 import { v4 as uuidv4 } from "uuid";
 
 const EditBlogForm = () => {
-  const { addBlogHandler, loading, blogList } = useAxios();
+  const { updateBlogHandler, loading, blogList, blog } = useAxios();
   const { control, formState, handleSubmit, setValue, reset } = useForm({
     mode: "all",
   });
 
   useEffectOnce(() => {
-    setValue("id", uuidv4());
-    setValue("postedDate", "");
-    setValue("title", "");
-    setValue("category", "");
-    setValue("description", "");
-    setValue("isPublish", "");
+    if(blog){
+    setValue("id", blog.id);
+    // setValue("postedDate", "");
+    setValue("title", blog.title);
+    setValue("category", blog.category);
+    setValue("description", blog.description);
+    setValue("isPublish", blog.isPublish);
+    }
   });
 
   const submitHandler = (data: FieldValues) => {
-    addBlogHandler(data);
+    updateBlogHandler(data);
     console.log(data);
     // reset();
   };
@@ -70,14 +72,7 @@ const EditBlogForm = () => {
                 label="Category"
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
-              <AppTextInput
-                // value={activityDetail?.city}
-                control={control}
-                name="city"
-                label="City"
-              />
-            </Grid>
+           
             {/* <Grid item xs={12}>
               <AppCheckbox
                 chekedValue={false}
@@ -86,9 +81,9 @@ const EditBlogForm = () => {
                 control={control}
               />
             </Grid> */}
-            <Grid item xs={12} sm={6}>
+            {/* <Grid item xs={12} sm={6}>
               <AppDateInput name="date" label="Date" control={control} />
-            </Grid>
+            </Grid> */}
           </Grid>
           <Stack direction="row" spacing={2}>
             <LoadingButton
