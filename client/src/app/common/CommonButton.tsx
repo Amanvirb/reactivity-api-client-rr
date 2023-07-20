@@ -6,15 +6,17 @@ interface ButtonProps {
   text: string;
   onClickHandler?: () => void;
   status?: boolean;
+  endIcon?:any;
 }
 
-const CommonButton = ({ text, onClickHandler, status }: ButtonProps) => {
+const CommonButton = ({ text, onClickHandler, status, endIcon }: ButtonProps) => {
   return (
     <div>
       <LoadingButton
         loading={status}
         onClick={onClickHandler}
         sx={commonBtnStyles.btnStyle}
+        endIcon={endIcon}
       >
         {text}
       </LoadingButton>

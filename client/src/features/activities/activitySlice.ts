@@ -80,7 +80,7 @@ export const fetchActivityDetailAsync = createAsyncThunk<
 >("activitydetail/fetchActivityAsync", async (activityId, thunkAPI) => {
   try {
     const response = await agent.Activities.getActivityDetail(activityId);
-    console.log("response issss:::", response);
+
     return response;
   } catch (error: any) {
     return thunkAPI.rejectWithValue({ error: error.data });
@@ -141,7 +141,7 @@ function initParams() {
 }
 function initActivityDetail() {
   return {
-    id: uuidv4(),
+    id: "",
     title: " ",
     date: new Date(),
     description: " ",
@@ -178,9 +178,6 @@ export const activitySlice = createSlice({
   }),
 
   reducers: {
-    setActivities: (state, action) => {
-      state.activityList = action.payload;
-    },
     setParams: (state, action) => {
       state.activityLoaded = false;
       state.activityList.pagination.currentPage = 1;
@@ -220,6 +217,28 @@ export const activitySlice = createSlice({
     },
     clearActivityDetail: (state) => {
       state.activityDetail = initActivityDetail();
+    },
+    updateActivityList: (state, action) => {
+      console.log("reducer payload", action.payload);
+      if (state.activityList.items.length > 0) {
+        console.log("itemindex", state.activityList.items);
+
+        const itemIndex = state.activityList.items.findIndex(
+          (x) => x.id === action.payload.id
+        );
+        // let newItem = state.activityList.items.find(
+        //   (x) => x.id === action.payload.id
+        // );
+        if (itemIndex === undefined || itemIndex < 0) return;
+
+        if (itemIndex >= 0) {
+          let updatedActivity = {
+            ...state.activityList.items[itemIndex],
+            ...action.payload,
+          };
+          state.activityList.items[itemIndex] = updatedActivity;
+        }
+      }
     },
   },
   extraReducers: (builder) => {
@@ -284,13 +303,36 @@ export const activitySlice = createSlice({
     });
 
     builder.addCase(updateActivityAsync.fulfilled, (state, action) => {
+      let updatedActivity: ActivityDetail | null = null;
+      //update activity list
+      if (state.activityList.items.length > 0) {
+        const itemIndex = state.activityList.items.findIndex(
+          (x) => x.id === action.meta.arg.id
+        );
+        // let newItem = state.activityList.items.find(
+        //   (x) => x.id === action.payload.id
+        // );
+        if (itemIndex === undefined || itemIndex < 0) return;
+
+        if (itemIndex >= 0) {
+          updatedActivity = {
+            ...state.activityList.items[itemIndex],
+            ...action.meta.arg,
+          };
+          state.activityList.items[itemIndex] = updatedActivity;
+          state.activityDetail = updatedActivity;
+        }
+      }
+      //Update selected activity
       if (state.activityDetail) {
-        state.activityDetail.title = action.meta.arg.title;
-        state.activityDetail.date = action.meta.arg.date;
-        state.activityDetail.description = action.meta.arg.category;
-        state.activityDetail.city = action.meta.arg.city;
-        state.activityDetail.venue = action.meta.arg.venue;
-        state.activityDetail.isCancelled = action.meta.arg.isCancelled;
+        if (!updatedActivity) {
+          updatedActivity = {
+            ...state.activityDetail,
+            ...action.meta.arg,
+          };
+        }
+
+        state.activityDetail = updatedActivity;
       }
       toast.success("Activity updated Successfully");
       state.activityStatus = idle;
@@ -343,11 +385,11 @@ export const activitySlice = createSlice({
 // );
 
 export const {
-  setActivities,
   setParams,
   setPagination,
   setStartDate,
   cancelActivity,
   setFormActivity,
   clearActivityDetail,
+  updateActivityList,
 } = activitySlice.actions;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { Box, Grid, Stack, Typography } from "@mui/material";
 import useAxios from "../../../../app/hooks/useAxios";
@@ -98,8 +98,6 @@ const ActivityEditCreateForm = () => {
     const newData = { ...data, date: new Date(data.date).toISOString() };
     if (id) {
       updateActivityHandler(newData);
-      console.log("Reset form");
-      reset();
     } else {
       console.log("createactivity", newData);
       createActivityHandler(newData);
@@ -107,14 +105,14 @@ const ActivityEditCreateForm = () => {
   };
 
   return (
-    <Box component={"div"} sx={{ m: 10 }}>
+    <Box component={"div"} sx={{ m: "80px auto", width: 700 }}>
       <form onSubmit={handleSubmit(submitHandler)}>
         <Stack direction="column" alignItems="flex-start" spacing={2}>
-          <Typography variant="h6" gutterBottom>
-            Edit Activity
-          </Typography>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={12}>
+              <Typography marginBottom={5} variant="h6" gutterBottom>
+                {id ? "Edit Activity" : "Create Activity"}
+              </Typography>
               <AppTextInput
                 value={activityDetail?.title}
                 control={control}
@@ -126,7 +124,7 @@ const ActivityEditCreateForm = () => {
               <AppTextInput
                 value={activityDetail?.description}
                 control={control}
-                name="Description"
+                name="description"
                 label="Description"
               />
             </Grid>
