@@ -65,8 +65,7 @@ const ActivityEditCreateForm = () => {
     }
 
     if (id === undefined) {
-      console.log("iddd", id);
-      // setValue("id", uuidv4());
+      setValue("id", uuidv4());
       setValue("date", new Date());
       setValue("title", "");
       setValue("description", "");

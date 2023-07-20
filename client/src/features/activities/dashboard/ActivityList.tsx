@@ -50,7 +50,12 @@ const ActivityList = () => {
         <p>Data not found...</p>
       )}
       <Grid container spacing={4}>
-        <Grid item xs={8}>
+        <Grid item xs={12} lg={4}>
+          <Item1>
+            <ActivityFilters />
+          </Item1>
+        </Grid>
+        <Grid item xs={12} lg={8}>
           {activityList?.items.map((activity: ActivityDetail) => (
             <Box component="div" key={activity.id}>
               <Box
@@ -95,11 +100,6 @@ const ActivityList = () => {
               </Item>
             </Box>
           ))}
-        </Grid>
-        <Grid item xs={4}>
-          <Item1>
-            <ActivityFilters />
-          </Item1>
         </Grid>
       </Grid>
       <PaginationComponent />

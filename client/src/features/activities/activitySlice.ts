@@ -2,6 +2,7 @@ import {
   createAsyncThunk,
   createEntityAdapter,
   createSlice,
+  createReducer,
 } from "@reduxjs/toolkit";
 import agent from "../../app/api/agent";
 import {
@@ -22,7 +23,7 @@ import { RootState } from "../../app/store/configureStore";
 import { User } from "../../app/models/account";
 import { FieldValues } from "react-hook-form";
 import { toast } from "react-toastify";
-import { v4 as uuidv4 } from "uuid";
+
 
 interface ActivityState {
   activityList: Activity;
@@ -218,28 +219,28 @@ export const activitySlice = createSlice({
     clearActivityDetail: (state) => {
       state.activityDetail = initActivityDetail();
     },
-    updateActivityList: (state, action) => {
-      console.log("reducer payload", action.payload);
-      if (state.activityList.items.length > 0) {
-        console.log("itemindex", state.activityList.items);
+    // updateActivityList: (state, action) => {
+    //   console.log("reducer payload", action.payload);
+    //   if (state.activityList.items.length > 0) {
+    //     console.log("itemindex", state.activityList.items);
 
-        const itemIndex = state.activityList.items.findIndex(
-          (x) => x.id === action.payload.id
-        );
-        // let newItem = state.activityList.items.find(
-        //   (x) => x.id === action.payload.id
-        // );
-        if (itemIndex === undefined || itemIndex < 0) return;
+    //     const itemIndex = state.activityList.items.findIndex(
+    //       (x) => x.id === action.payload.id
+    //     );
+    //     // let newItem = state.activityList.items.find(
+    //     //   (x) => x.id === action.payload.id
+    //     // );
+    //     if (itemIndex === undefined || itemIndex < 0) return;
 
-        if (itemIndex >= 0) {
-          let updatedActivity = {
-            ...state.activityList.items[itemIndex],
-            ...action.payload,
-          };
-          state.activityList.items[itemIndex] = updatedActivity;
-        }
-      }
-    },
+    //     if (itemIndex >= 0) {
+    //       let updatedActivity = {
+    //         ...state.activityList.items[itemIndex],
+    //         ...action.payload,
+    //       };
+    //       state.activityList.items[itemIndex] = updatedActivity;
+    //     }
+    //   }
+    // },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchActivityAsync.pending, (state, action) => {
@@ -302,7 +303,9 @@ export const activitySlice = createSlice({
       state.activityStatus = editCreateActivityPending;
     });
 
+
     builder.addCase(updateActivityAsync.fulfilled, (state, action) => {
+     
       let updatedActivity: ActivityDetail | null = null;
       //update activity list
       if (state.activityList.items.length > 0) {
@@ -315,6 +318,7 @@ export const activitySlice = createSlice({
         if (itemIndex === undefined || itemIndex < 0) return;
 
         if (itemIndex >= 0) {
+        //  state.activityList.items[itemIndex] = action.meta.arg;
           updatedActivity = {
             ...state.activityList.items[itemIndex],
             ...action.meta.arg,
@@ -391,5 +395,5 @@ export const {
   cancelActivity,
   setFormActivity,
   clearActivityDetail,
-  updateActivityList,
+  // updateActivityList,
 } = activitySlice.actions;
