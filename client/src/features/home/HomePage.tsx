@@ -6,7 +6,10 @@ import { router } from '../../app/layout/Routes'
 
 const HomePage = () => {
   return (
-    <Box component={'div'} sx={{mt: 20,}}>
+    <Box component={'div'} sx={{mt: 20, height:'100vh'}}>
+      <Typography align='center' margin={4}>
+      Homepage is under construction
+      </Typography>
       <Box
         sx={{
           display: 'flex',

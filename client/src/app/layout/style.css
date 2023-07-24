@@ -1,3 +1,17 @@
+body {
+  /* background-color: #ddf0dd !important; */
+  min-height: 100vh;
+  margin: 0 auto;
+}
+
+.approot {
+  background-color: #def6fa !important;
+  max-width: 2000px;
+  margin: 0 auto;
+  overflow: hidden;
+  /* min-height: 100vh; */
+}
+
 .img1 {
   width: 100%;
   background-size:cover;
