@@ -11,6 +11,7 @@ import { pending } from "./app/common/options/sliceOpt";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "react-datepicker/dist/react-datepicker.css";
+import "../src/app/layout/style.css";
 
 function App() {
   const { accountStatus } = useAxios();
@@ -36,11 +37,11 @@ function App() {
   if (accountStatus === pending) return <p>Loading...</p>;
 
   return (
-    <Box component="div" sx={{ mb: 10 }}>
+    <div className="approot">
       <NavBar />
       <Outlet />
       <ToastContainer />
-    </Box>
+    </div>
   );
 }
 
