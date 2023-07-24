@@ -11,7 +11,7 @@ const HomePage = () => {
     <Box component={"div"} sx={{height: "100vh" }}>
       <HomeHeader />
       <HomeMiddle />
-      <Typography variant="h1" align="center" margin={4}>
+      <Typography variant="h2" align="center" margin={4}>
         Homepage is under Construction
       </Typography>
     </Box>
