@@ -5,11 +5,11 @@ body {
 }
 
 .approot {
-  background-color: #def6fa !important;
+  /* background-color: #def6fa !important; */
   max-width: 2000px;
   margin: 0 auto;
-  overflow: hidden;
-  /* min-height: 100vh; */
+  /* overflow: hidden; */
+  min-height: 100vh;
 }
 
 .img1 {
@@ -20,3 +20,60 @@ body {
   overflow: hidden;
 }
 
+.gallery  {
+  --s: 280px; /* control the size */
+  
+  display: grid;
+  width: var(--s);
+  aspect-ratio: 1;
+  overflow: hidden;
+  padding: calc(var(--s)/20);
+  border-radius: 50%;
+  position: relative;
+  clip-path: circle(49.5%); /* to avoid a few glitch cause by overflow: hidden */
+}
+.gallery::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: inherit;
+  border-radius: inherit;
+  background: repeating-conic-gradient(#84adc0 0 30deg,#706b93 0 60deg);
+  -webkit-mask: 
+     linear-gradient(#fff 0 0) content-box, 
+     linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+}
+.gallery > img {
+  grid-area: 1/1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+  transform-origin: 50% 120.7%;
+}
+.gallery::after,
+.gallery > img {
+  animation: m 40s infinite cubic-bezier(.5,-0.2,.5,1.2);  /* Cntrol speed */
+}
+.gallery > img:nth-child(2) {animation-delay: -2s}
+.gallery > img:nth-child(3) {animation-delay: -4s}
+.gallery > img:nth-child(4) {animation-delay: -6s}
+
+@keyframes m {
+  0%,3%    {transform: rotate(0)}
+  22%,27%  {transform: rotate(-90deg)}
+  47%,52%  {transform: rotate(-180deg)}
+  72%,77%  {transform: rotate(-270deg)}
+  98%,100% {transform: rotate(-360deg)}
+}
+
+.header {
+  height: 500px;
+  /* width: 100%; */
+  /* background-image: url("../assets/images/avtivities.jpg"); */
+  background-image: url("../../../public/categoryImages/travel.jpg");
+  background-size: cover;
+  background-repeat: 'no-repeat';
+}
