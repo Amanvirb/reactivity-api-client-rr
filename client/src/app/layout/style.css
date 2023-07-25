@@ -72,8 +72,8 @@ body {
 .header {
   height: 500px;
   /* width: 100%; */
-  /* background-image: url("../assets/images/avtivities.jpg"); */
   background-image: url("../../../public/categoryImages/travel.jpg");
   background-size: cover;
-  background-repeat: 'no-repeat';
+  background-repeat: no-repeat;
+  
 }
