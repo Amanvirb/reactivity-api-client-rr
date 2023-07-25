@@ -22,23 +22,6 @@ import { pending } from "../common/options/sliceOpt";
 import { Link, NavLink } from "react-router-dom";
 import CommonButton from "../common/CommonButton";
 
-const navStyles = {
-  display: "flex",
-  color: "inherit",
-  textDecoration: "none",
-  // typography: "h6",
-  justifyContent: "center",
-  "&:hover": {
-    bgcolor: "#21b6af",
-  },
-  "&.active": {
-    bgcolor: "#21b6af",
-  },
-  p: 1,
-  width: 100,
-  mr: 1,
-};
-
 function NavBar() {
   const [anchors, setAnchors] = React.useState<[] | HTMLElement[]>([]);
 
@@ -68,7 +51,7 @@ function NavBar() {
   };
 
   return (
-    <AppBar position="static" sx={{ bgcolor: "#5097A4", height:80 }}>
+    <AppBar position="static" sx={{ bgcolor: "#5097A4", height: 75 }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Link to="/">
@@ -101,7 +84,6 @@ function NavBar() {
               id="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
-              color="inherit"
             >
               <MenuIcon />
             </IconButton>
@@ -129,12 +111,12 @@ function NavBar() {
                     key={page.text}
                     onClick={() => handleCloseNavMenu(page.routeId)}
                   >
-                    <Typography textAlign="center">{page.text}</Typography>
+                    <Typography variant="body2" textAlign="center">{page.text}</Typography>
                   </MenuItem>
                 ))}
               {user && (
                 <MenuItem onClick={() => dispatch(signOut())}>
-                  <Typography textAlign="center">Logout</Typography>
+                  <Typography variant="body2" textAlign="center">Logout</Typography>
                 </MenuItem>
               )}
               {!user && (
@@ -202,7 +184,7 @@ function NavBar() {
                   component={NavLink}
                   to={page.routeId}
                   key={page.text}
-                  sx={navStyles}
+                  // sx={navStyles}
                 >
                   {page.text}
                 </ListItem>
@@ -230,7 +212,10 @@ function NavBar() {
                   alignItems: "center",
                 }}
               >
-                <Typography sx={{ display: { xs: "flex" }, mr: 1 }}>
+                <Typography
+                  variant="body1"
+                  sx={{ display: { xs: "flex" }, mr: 1 }}
+                >
                   Hi {user.username.toUpperCase()}
                 </Typography>
 
@@ -271,7 +256,7 @@ function NavBar() {
                       handleCloseNavMenu(`/userprofile/${user.username}`)
                     }
                   >
-                    <Typography textAlign="center">My Profile</Typography>
+                    <Typography variant="body2" textAlign="center">My Profile</Typography>
                   </MenuItem>
                   {/* {profile.map((pr) => (
                     <MenuItem
@@ -282,7 +267,7 @@ function NavBar() {
                     </MenuItem>
                   ))} */}
                   <MenuItem onClick={() => dispatch(signOut())}>
-                    <Typography textAlign="center">Logout</Typography>
+                    <Typography variant="body2" textAlign="center">Logout</Typography>
                   </MenuItem>
                 </Menu>
               </Box>

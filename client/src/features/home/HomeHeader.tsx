@@ -20,21 +20,20 @@ const HomeHeader = () => {
   return (
     <Grid
       container
-      spacing={2}
       className="header"
       direction="row"
       justifyContent="center"
       alignItems="flex-end"
     >
       <Grid item xs={6}>
-        <Typography color={"#013220"} variant="h2">
+        <Typography variant="h2">
           <strong>
             Enjoy Different
             <br /> Activities
           </strong>
         </Typography>
-        <Typography variant="body2" color={"#013220"}>
-            Sign to create an Activity
+        <Typography variant="body2">
+            Sign in to create an Activity
         </Typography>
       </Grid>
       <Grid item xs={6}>
