@@ -1,11 +1,11 @@
 import { colors, createTheme } from "@mui/material";
 
 const Colors = {
-  primary: "#fff",
+  primary: "#000",
   secondary: "#95defb",
   hover: "#21b6af",
   active: "#21b6af",
-  inherit: "#fff",
+  inherit: "#000",
 };
 
 const theme = createTheme({
