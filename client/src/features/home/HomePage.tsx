@@ -8,7 +8,7 @@ import HomeMiddle from "./HomeMiddle";
 
 const HomePage = () => {
   return (
-    <Box component={"div"} sx={{height: "100vh"}}>
+    <Box component={"div"} sx={{display:'flex', flexDirection:'column', height: "100vh", alignItems:"center"}}>
       <HomeHeader />
       <HomeMiddle />
       <Typography variant="h2" align="center" margin={4}>

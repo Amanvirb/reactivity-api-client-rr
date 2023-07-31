@@ -126,7 +126,7 @@ export default function ActivityListItem({ activity }: Props) {
           <Typography sx={{ pl: 1 }}>
             {format(new Date(activity.date), "yyyy-MM-dd")}
           </Typography>
-          <LocationOnIcon sx={{ pl: 2 }} />
+          <LocationOnIcon fontSize='large' sx={{ pl: 2 }} />
           <Typography sx={{ pl: 1 }}> {activity.venue}</Typography>
         </Box>
         <Box
