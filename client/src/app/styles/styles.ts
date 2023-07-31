@@ -33,9 +33,9 @@ const theme = createTheme({
     h4: {
       color: "#013220",
     },
-    h6:{
-      color:"#fff"
-    }
+    h6: {
+      color: "#fff",
+    },
   },
   components: {
     MuiTypography: {
@@ -52,10 +52,10 @@ const theme = createTheme({
           mr: 1,
           justifyContent: "center",
           ":hover": {
-            bgcolor: "#21b6af",
+            bgcolor: "#5097A4",
           },
           ".active": {
-            bgcolor: "#21b6af",
+            bgcolor: "yellow",
           },
         },
       },
@@ -64,7 +64,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           // color: Colors.inherit,
-          // fontSize:'6rem', 
+          // fontSize:'6rem',
         },
       },
     },
@@ -72,7 +72,16 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           // color: Colors.inherit,
-          // fontSize:'6rem', 
+          // fontSize:'6rem',
+        },
+      },
+    },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          ":hover": {
+            boxShadow: 20, // theme.shadows[20]
+          },
         },
       },
     },

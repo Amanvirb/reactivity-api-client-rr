@@ -39,6 +39,7 @@ const ActivityDetailHeader = ({ activity }: ActivityProps) => {
               display: "flex",
               flexDirection: "row",
               justifyContent: "space-between",
+                            height:30
             }}
           >
             <Tooltip
@@ -48,8 +49,8 @@ const ActivityDetailHeader = ({ activity }: ActivityProps) => {
             >
               <ArrowBackIcon />
             </Tooltip>
-            <Typography color="red" bgcolor="yellow">
-              {activity?.isCancelled ? "This activity has been cancelled" : " "}
+            <Typography fontSize={12} color="red" bgcolor={activity?.isCancelled ? "yellow" : "#fff"}>
+              {activity?.isCancelled ? "This activity has been cancelled" : ""}
             </Typography>
           </Box>
           <CardMedia
@@ -61,21 +62,21 @@ const ActivityDetailHeader = ({ activity }: ActivityProps) => {
         <Box
           sx={{
             position: "absolute",
-            top: 250,
+            top: 200,
             // right:100,
-            left: 50,
+            left: 30,
             // top: { xs: 10, sm: 20, md: 30, lg: 80 },
             // right: { xs: 10, lg: 100 },
             // left: { xs: 10, lg: 180 },
           }}
         >
-          <Typography textAlign="left" color="#fff">
+          <Typography textAlign="left" variant="h6">
             {activity && activity.description}
           </Typography>
-          <Typography textAlign="left" color="#fff">
+          <Typography textAlign="left" variant="h6">
             {activity && format(new Date(activity.date), "yyyy-MM-dd")}
           </Typography>
-          <Typography textAlign="left" color="#fff">
+          <Typography textAlign="left" variant="h6">
             Hosted by: {activity && activity.hostUsername}
           </Typography>
         </Box>
