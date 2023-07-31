@@ -73,12 +73,11 @@ const ActivityList = () => {
                 <Typography
                   textAlign="left"
                   sx={{
-                    pt: 4,
+                    height: 25,
                     color: "#21b6af",
                     fontSize: 14,
                   }}
                 >
-                  {" "}
                   {format(new Date(activity.date), "yyyy-MM-dd")}
                 </Typography>
                 {activity.hostUsername === user?.username && (
