@@ -19,7 +19,7 @@ const theme = createTheme({
   },
   typography: {
     body1: {
-      color: "#fff",
+      color: "#000",
     },
     body2: {
       color: "#013220",
@@ -27,6 +27,15 @@ const theme = createTheme({
     h2: {
       color: "#013220",
     },
+    h3: {
+      color: "#013220",
+    },
+    h4: {
+      color: "#013220",
+    },
+    h6:{
+      color:"#fff"
+    }
   },
   components: {
     MuiTypography: {
@@ -54,7 +63,16 @@ const theme = createTheme({
     MuiIconButton: {
       styleOverrides: {
         root: {
-          color: Colors.inherit,
+          // color: Colors.inherit,
+          // fontSize:'6rem', 
+        },
+      },
+    },
+    MuiIcon: {
+      styleOverrides: {
+        root: {
+          // color: Colors.inherit,
+          // fontSize:'6rem', 
         },
       },
     },

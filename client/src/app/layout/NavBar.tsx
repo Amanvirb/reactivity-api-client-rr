@@ -213,8 +213,8 @@ function NavBar() {
                 }}
               >
                 <Typography
-                  variant="body1"
-                  sx={{ display: { xs: "flex" }, mr: 1 }}
+                  variant="h6"
+                  sx={{ display: { xs: "flex" }, mr: 1}}
                 >
                   Hi {user.username.toUpperCase()}
                 </Typography>
