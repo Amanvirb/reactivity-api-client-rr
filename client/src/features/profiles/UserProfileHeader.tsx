@@ -46,7 +46,7 @@ const UserProfileHeader = ({ userProfile }: ProfileProps) => {
       <Box sx={{ display: "flex", flexDirection: "column", p: 1 }}>
         <Box sx={{ display: "flex", flexDirection: "row", borderBottom: 1 }}>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
-            <Typography textAlign="center" variant="h6" padding={2}>
+            <Typography textAlign="center" padding={2}>
               {userProfile.followersCount}
             </Typography>
             <Typography textAlign="center" padding={2}>
@@ -54,7 +54,7 @@ const UserProfileHeader = ({ userProfile }: ProfileProps) => {
             </Typography>
           </Box>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
-            <Typography textAlign="center" variant="h6" padding={2}>
+            <Typography textAlign="center" padding={2}>
               {userProfile.followingCount}
             </Typography>
             <Typography textAlign="center" padding={2}>
