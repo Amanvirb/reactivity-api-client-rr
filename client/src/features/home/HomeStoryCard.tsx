@@ -7,34 +7,45 @@ import {
   Typography,
   CardMedia,
 } from "@mui/material";
-import FoodBankIcon from '@mui/icons-material/FoodBank';
-import CabinIcon from '@mui/icons-material/Cabin';
-import HeadphonesIcon from '@mui/icons-material/Headphones';
-import DepartureBoardIcon from '@mui/icons-material/DepartureBoard';
-import TheatersIcon from '@mui/icons-material/Theaters';
-import LocalBarIcon from '@mui/icons-material/LocalBar';
+import FoodBankIcon from "@mui/icons-material/FoodBank";
+import CabinIcon from "@mui/icons-material/Cabin";
+import HeadphonesIcon from "@mui/icons-material/Headphones";
+import DepartureBoardIcon from "@mui/icons-material/DepartureBoard";
+import TheatersIcon from "@mui/icons-material/Theaters";
+import LocalBarIcon from "@mui/icons-material/LocalBar";
 import { Link } from "react-router-dom";
 
 interface CategoryProps {
   title: string;
 }
 
-const HomeStoryCard = ({ title}: CategoryProps) => {
+const HomeStoryCard = ({ title }: CategoryProps) => {
   return (
-    <Card sx={{ width: 250, height: 200, m: 1, p:1, textAlign: "center"}}>
+    <Card
+      sx={{
+        width: 250,
+        height: 200,
+        m: 1,
+        p: 1,
+        textAlign: "center",
+        // ":hover": {
+        //   boxShadow: 20, // theme.shadows[20]
+        // },
+      }}
+    >
       {/* <CardHeader avatar={<Avatar alt={title} src={imgUrl} />} /> */}
       {/* <CardMedia
         component="img"
         image={imgUrl} 
       /> */}
-      {title==="Food" && <FoodBankIcon/>}
-      {title==="Culture" && <CabinIcon/>}
-      {title==="Music" && <HeadphonesIcon/>}
-      {title==="Travel" && <DepartureBoardIcon/>}
+      {title === "Food" && <FoodBankIcon />}
+      {title === "Culture" && <CabinIcon />}
+      {title === "Music" && <HeadphonesIcon />}
+      {title === "Travel" && <DepartureBoardIcon />}
       <CardContent>
-        <Typography variant="h6">consectetur</Typography>
-            <Typography variant="body2">
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+        <Typography variant="body1">consectetur</Typography>
+        <Typography variant="body2">
+          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
         </Typography>
       </CardContent>
     </Card>

@@ -8,7 +8,7 @@ export const pages: NavBarRoute[] = [
   { text: "Activities", routeId: "/activities" },
   // { text: "Errors", routeId: "/" },
   { text: "Blog", routeId: "/blog" },
-  { text: "Form", routeId: "/form" },
+  // { text: "Form", routeId: "/form" },
 ];
 
 // const currrentUser = localStorage.getItem("currentuser");

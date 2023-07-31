@@ -12,6 +12,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import "../src/app/layout/style.css";
 import { Container, CssBaseline, ThemeProvider } from "@mui/material";
 import theme from "./app/styles/styles";
+import AppFooter from "./features/footer/AppFooter";
 
 function App() {
   const { accountStatus } = useAxios();
@@ -44,6 +45,7 @@ function App() {
           <NavBar />
           <Outlet />
           <ToastContainer />
+          {/* <AppFooter/> */}
         </Container>
       </ThemeProvider>
     </React.Fragment>
