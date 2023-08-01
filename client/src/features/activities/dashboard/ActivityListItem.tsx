@@ -23,7 +23,7 @@ const Item1 = styled(Paper)(({ theme }) => ({
   flexDirection: "column",
   justifyContent: "center",
   flexGrow: 1,
- }));
+}));
 const avatarStyle = {
   width: 100,
   height: 100,
@@ -39,118 +39,121 @@ export default function ActivityListItem({ activity }: Props) {
 
   return (
     // <Box component={"div"}>
-      <Item1 elevation={1}>
+    <Item1 elevation={1}>
+      <Box
+        component="div"
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          pl: 2,
+          borderBottom: "2px solid #D3D3D3",
+        }}
+      >
+        <ImageAvatar
+          apiUrl={
+            activity.attendees.find((x) => x.username === activity.hostUsername)
+              ?.image || ""
+          }
+          spacing={2}
+          avatarStyle={avatarStyle}
+        />
         <Box
-          component="div"
           sx={{
             display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            pl: 2,
-            borderBottom: "2px solid #D3D3D3",
+            flexDirection: "column",
+            flexGrow: 1,
           }}
         >
-          <ImageAvatar
-            apiUrl={
-              activity.attendees.find(
-                (x) => x.username === activity.hostUsername
-              )?.image || ""
-            }
-            spacing={2}
-            avatarStyle={avatarStyle}
-          />
           <Box
             sx={{
               display: "flex",
               flexDirection: "column",
+              ml: 5,
               flexGrow: 1,
+              p: 2,
             }}
           >
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                ml: 5,
-                flexGrow: 1,
-                p: 2,
-              }}
-            >
-              <Typography textAlign="left" sx={{ pt: 2 }}>
-                {firstLetterUpper(activity.title)}
-              </Typography>
-              <Typography textAlign="left" sx={{ pt: 2, pb: 1 }}>
-                Host: {activity.hostUsername.toUpperCase()}
-              </Typography>
-              {activity.hostUsername === user?.username && (
-                <Typography
-                  textAlign="left"
-                  sx={{
-                    p: 1,
-                    color: "#f2722b",
-                    border: isMobile ? 0 : "1px solid #f2722b",
-                    width: isMobile ? 50 : 200,
-                    fontSize: isMobile ? 10 : 14,
-                  }}
-                >
-                  "You are hosting this activity"
-                </Typography>
-              )}
+            <Typography textAlign="left" sx={{ pt: 2 }}>
+              {firstLetterUpper(activity.title)}
+            </Typography>
+            <Typography textAlign="left" sx={{ pt: 2, pb: 1 }}>
+              Host: {activity.hostUsername.toUpperCase()}
+            </Typography>
+            {activity.hostUsername === user?.username && (
               <Typography
                 textAlign="left"
                 sx={{
-                  // p: 1,
-                  color: "#21b6af",
-                  width: 200,
-                  fontSize: 14,
+                  p: 1,
+                  color: "#f2722b",
+                  border: isMobile ? 0 : "1px solid #f2722b",
+                  width: isMobile ? 50 : 200,
+                  fontSize: isMobile ? 10 : 14,
                 }}
               >
-                {activity.attendees.find(
-                  (x) => x.username === user?.username
-                ) && activity.hostUsername !== user?.username
-                  ? "You are going to this activity"
-                  : ""}
+                "You are hosting this activity"
               </Typography>
-            </Box>
+            )}
+            <Typography
+              textAlign="left"
+              sx={{
+                // p: 1,
+                color: "#21b6af",
+                width: 200,
+                fontSize: 14,
+              }}
+            >
+              {activity.attendees.find((x) => x.username === user?.username) &&
+              activity.hostUsername !== user?.username
+                ? "You are going to this activity"
+                : ""}
+            </Typography>
           </Box>
         </Box>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            p: 2,
-            borderBottom: "2px solid #D3D3D3",
-          }}
-        >
-          <QueryBuilderIcon />
-          <Typography sx={{ pl: 1 }}>
-            {format(new Date(activity.date), "yyyy-MM-dd")}
-          </Typography>
-          <LocationOnIcon fontSize='large' sx={{ pl: 2 }} />
-          <Typography sx={{ pl: 1 }}> {activity.venue}</Typography>
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            bgcolor: "#f3f4f5",
-            pt: 1,
-            pb: 1,
-            borderBottom: "2px solid #D3D3D3",
-          }}
-        >
-          {activity.attendees.map((attendee: ActivityAttendee) => (
-            <Tooltip title={<UserProfileCard userProfile={attendee}/>} key={attendee.username} placement="top" arrow>
-              <Box sx={{ pl: 1 }}>
-                <ImageAvatar
-                  apiUrl={attendee.image}
-                  spacing={2}
-                  avatarStyle={avatarStyle1}
-                />
-              </Box>
-            </Tooltip>
-          ))}
-          {/* {activity.attendees.map((attendee: ActivityAttendee) => (
+      </Box>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          p: 2,
+          borderBottom: "2px solid #D3D3D3",
+        }}
+      >
+        <QueryBuilderIcon />
+        <Typography sx={{ pl: 1 }}>
+          {format(new Date(activity.date), "yyyy-MM-dd")}
+        </Typography>
+        <LocationOnIcon sx={{ pl: 2 }} />
+        <Typography sx={{ pl: 1 }}> {activity.venue}</Typography>
+      </Box>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          bgcolor: "#f3f4f5",
+          pt: 1,
+          pb: 1,
+          borderBottom: "2px solid #D3D3D3",
+        }}
+      >
+        {activity.attendees.map((attendee: ActivityAttendee) => (
+          <Tooltip
+            title={<UserProfileCard userProfile={attendee} />}
+            key={attendee.username}
+            placement="top"
+            arrow
+          >
+            <Box sx={{ pl: 1 }}>
+              <ImageAvatar
+                apiUrl={attendee.image}
+                spacing={2}
+                avatarStyle={avatarStyle1}
+              />
+            </Box>
+          </Tooltip>
+        ))}
+        {/* {activity.attendees.map((attendee: ActivityAttendee) => (
             <Box key={attendee.username} sx={{ pl: 2 }}>
               <ImageAvatar
                 apiUrl={attendee.image}
@@ -169,26 +172,26 @@ export default function ActivityListItem({ activity }: Props) {
               </Tooltip>
             </Box>
           ))} */}
+      </Box>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          p: 1,
+        }}
+      >
+        <Box sx={{ flexGrow: 1 }}>
+          <Typography textAlign="left">{activity.description}</Typography>
         </Box>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            p: 1,
-          }}
-        >
-          <Box sx={{ flexGrow: 1 }}>
-            <Typography textAlign="left">{activity.description}</Typography>
-          </Box>
-          <CommonButton
-            text="View"
-            onClickHandler={() =>
-              router.navigate(`/activitydetail/${activity.id}`)
-            }
-          />
-        </Box>
-      </Item1>
+        <CommonButton
+          text="View"
+          onClickHandler={() =>
+            router.navigate(`/activitydetail/${activity.id}`)
+          }
+        />
+      </Box>
+    </Item1>
     // </Box>
   );
 }
