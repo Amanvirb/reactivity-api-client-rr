@@ -28,16 +28,11 @@ const HomeStoryCard = ({ title }: CategoryProps) => {
         m: 1,
         p: 1,
         textAlign: "center",
-        // ":hover": {
-        //   boxShadow: 20, // theme.shadows[20]
-        // },
+        ":hover": {
+          boxShadow: 20, 
+        },
       }}
     >
-      {/* <CardHeader avatar={<Avatar alt={title} src={imgUrl} />} /> */}
-      {/* <CardMedia
-        component="img"
-        image={imgUrl} 
-      /> */}
       {title === "Food" && <FoodBankIcon />}
       {title === "Culture" && <CabinIcon />}
       {title === "Music" && <HeadphonesIcon />}

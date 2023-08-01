@@ -1,11 +1,12 @@
-import { colors, createTheme } from "@mui/material";
+import { alpha, colors, createTheme } from "@mui/material";
+import { red } from "@mui/material/colors";
 
 const Colors = {
   primary: "#000",
-  secondary: "#95defb",
+  secondary: "#21b6af",
   hover: "#21b6af",
   active: "#21b6af",
-  inherit: "#000",
+  inherit: "#fff",
 };
 
 const theme = createTheme({
@@ -46,45 +47,48 @@ const theme = createTheme({
     MuiListItem: {
       styleOverrides: {
         root: {
-          color: "#fff",
-          p: 1,
+          color: Colors.inherit,
+          padding: 4,
           width: 100,
-          mr: 1,
+          margin: 2,
+          // border:'2px solid red',
           justifyContent: "center",
-          ":hover": {
-            bgcolor: "#5097A4",
+          '&:hover': {
+            // boxShadow: `0px 0px 0px 8px ${alpha('#000', 0.16)}`,
+            backgroundColor: Colors.active,
           },
-          ".active": {
-            bgcolor: "yellow",
-          },
+          '&.active': {
+            backgroundColor: Colors.hover,
+            },
         },
+        
       },
     },
     MuiIconButton: {
       styleOverrides: {
         root: {
-          // color: Colors.inherit,
-          // fontSize:'6rem',
+          color: Colors.inherit,
         },
       },
     },
-    MuiIcon: {
+    MuiSvgIcon: {
       styleOverrides: {
         root: {
-          // color: Colors.inherit,
-          // fontSize:'6rem',
+          color: Colors.secondary,
+          fontSize:'2rem',
         },
       },
     },
-    MuiCard: {
-      styleOverrides: {
-        root: {
-          ":hover": {
-            boxShadow: 20, // theme.shadows[20]
-          },
-        },
-      },
-    },
+    // MuiCard: {
+    //   styleOverrides: {
+    //     root: {
+    //       "&:hover": {
+    //         boxShadow: '0 0 20px 20px #dfdfdf',
+    //         // boxShadow: `0px 0px 0px 8px ${alpha('#000', 0.16)}`, // theme.shadows[20]
+    //       },
+    //     },
+    //   },
+    // },
   },
 });
 export default theme;

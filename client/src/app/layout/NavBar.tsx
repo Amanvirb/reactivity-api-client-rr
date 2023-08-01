@@ -184,7 +184,6 @@ function NavBar() {
                   component={NavLink}
                   to={page.routeId}
                   key={page.text}
-                  // sx={navStyles}
                 >
                   {page.text}
                 </ListItem>

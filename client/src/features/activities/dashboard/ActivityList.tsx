@@ -87,9 +87,9 @@ const ActivityList = () => {
                     onClick={() => deleteActivityAsyncHandler(activity.id)}
                   >
                     {activityStatus === deleteActivityPending ? (
-                      <CircularProgress sx={{ size: "2rem" }} />
+                      <CircularProgress sx={{ size: "1.5rem" }} />
                     ) : (
-                      <DeleteIcon />
+                      <DeleteIcon  sx={{fontSize:22}}/>
                     )}
                   </Tooltip>
                 )}
