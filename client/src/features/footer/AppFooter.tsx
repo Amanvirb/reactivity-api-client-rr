@@ -18,9 +18,8 @@ import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 // import certificate from "../../assets/certificate.png";
 
 const styles = {
-  arsContainer: {
+  footerContainer: {
     // maxWidth: 1200,
-    
     margin: "0 auto",
     padding: 40,
   },
@@ -28,8 +27,8 @@ const styles = {
 
 export default function AppFooter() {
   return (
-    <Box sx={{width:"100%", backgroundColor: "#bfbfbf"}}>
-      <Box style={styles.arsContainer}>
+    <Box sx={{width:"100%", backgroundColor: "#bfbfbf", m:8}}>
+      <Box style={styles.footerContainer}>
         <Grid
           container
           padding={4}

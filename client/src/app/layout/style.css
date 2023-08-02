@@ -22,7 +22,7 @@ body {
 
 .gallery  {
   --s: 280px; /* control the size */
-  
+  margin: 0 auto;
   display: grid;
   width: var(--s);
   aspect-ratio: 1;
@@ -70,10 +70,9 @@ body {
 }
 
 .header {
-  height: 500px;
+  height: 600px;
   /* width: 100%; */
   background-image: url("../../../public/categoryImages/travel.jpg");
   background-size: cover;
   background-repeat: no-repeat;
-  
 }
