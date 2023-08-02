@@ -34,6 +34,9 @@ const theme = createTheme({
     h4: {
       color: "#013220",
     },
+    h5: {
+      color: "#21b6af",
+    },
     h6: {
       color: "#fff",
     },
@@ -53,15 +56,14 @@ const theme = createTheme({
           margin: 2,
           // border:'2px solid red',
           justifyContent: "center",
-          '&:hover': {
+          "&:hover": {
             // boxShadow: `0px 0px 0px 8px ${alpha('#000', 0.16)}`,
             backgroundColor: Colors.active,
           },
-          '&.active': {
+          "&.active": {
             backgroundColor: Colors.hover,
-            },
+          },
         },
-        
       },
     },
     MuiIconButton: {
@@ -75,7 +77,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           color: Colors.secondary,
-          fontSize:'2rem',
+          fontSize: "2rem",
         },
       },
     },

@@ -2,9 +2,11 @@ import { Box, Pagination, Typography } from "@mui/material";
 import React, { useState } from "react";
 import useAxios from "../../app/hooks/useAxios";
 import useEventListner from "../../app/hooks/useEventListner";
+import useUtilities from "../../app/hooks/useUtilities";
 
 const PaginationComponent = () => {
   const { activityList } = useAxios();
+  const { appFontSize } = useUtilities();
   const { onPageChangeHandler } = useEventListner();
 
   const [currentPageNumber, setCurrentPageNumber] = useState(
@@ -23,7 +25,7 @@ const PaginationComponent = () => {
         p: 2,
       }}
     >
-      <Typography>
+      <Typography fontSize={appFontSize}>
         Displaying{" "}
         {(activityList.pagination.currentPage - 1) *
           activityList.pagination.itemsPerPage +

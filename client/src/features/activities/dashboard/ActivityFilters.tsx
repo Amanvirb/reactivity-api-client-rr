@@ -7,6 +7,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import { useForm } from "react-hook-form";
+import useUtilities from "../../../app/hooks/useUtilities";
 
 const Item = styled(Paper)(() => ({
   textAlign: "center",
@@ -15,7 +16,8 @@ const Item = styled(Paper)(() => ({
 
 const ActivityFilters = () => {
   const { filtersHandler, filteredDateHandler } = useDispatchReducer();
-
+  const { appFontSize } = useUtilities();
+  const { isMobile } = useUtilities();
   const {
     register,
     handleSubmit,
@@ -38,15 +40,11 @@ const ActivityFilters = () => {
             display: "flex",
             alignItems: "center",
             // p: 1.5,
-
             borderBottom: "2px solid #D3D3D3",
           }}
         >
-          <FilterAltIcon sx={{ color: "#21b6af", fontSize: 30 }} />{" "}
-          <Typography color="#21b6af" variant="h5">
-            {" "}
-            Filters{" "}
-          </Typography>
+          <FilterAltIcon sx={{ fontSize: 30 }} />{" "}
+          <Typography variant="h5"> Filters </Typography>
         </Box>
         <Box
           onClick={() => filtersHandler("all")}
@@ -62,7 +60,7 @@ const ActivityFilters = () => {
             },
           }}
         >
-          All activities
+          <Typography fontSize={appFontSize}>All activities</Typography>
         </Box>
         <Box
           onClick={() => filtersHandler("isGoing")}
@@ -78,7 +76,7 @@ const ActivityFilters = () => {
             },
           }}
         >
-          I am Going
+          <Typography fontSize={appFontSize}>I am Going</Typography>
         </Box>
         <Box
           onClick={() => filtersHandler("isHost")}
@@ -94,31 +92,14 @@ const ActivityFilters = () => {
             },
           }}
         >
-          I am Hosting
+          <Typography fontSize={appFontSize}>I am Hosting</Typography>
         </Box>
       </Grid>
       <Grid item xs={12}>
         <Item>
-          {/* <Calendar
-            
-            onChange={(date: any)=>filteredDateHandler(date as Date)}
-          /> */}
-          {/* <Box
-              component={"form"}
-              // onSubmit={handleSubmit(submitHandler)}
-              className="form-container"
-              sx={{ m: 10 }}
-            >
-              <Controller
-                as={AppDatePicker}
-                control={control}
-                valueName="appdate"
-                name="appDate"
-                onChange={(date: any) => filteredDateHandler(date as Date)}
-              />
-            </Box> */}
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DateCalendar
+              sx={{ width: isMobile ? 240 : 300 }}
               onChange={(date: any) => filteredDateHandler(date as Date)}
             />
           </LocalizationProvider>

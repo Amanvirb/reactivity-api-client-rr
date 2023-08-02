@@ -13,6 +13,7 @@ import { ActivityDetail } from "../../../app/models/activity";
 import { format } from "date-fns";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CircularProgress from "@mui/material/CircularProgress";
+import useUtilities from "../../../app/hooks/useUtilities";
 
 const Item = styled(Paper)(() => ({
   padding: 1,
@@ -35,6 +36,8 @@ const ActivityList = () => {
     activityStatus,
     user,
   } = useAxios();
+
+  const { isMobile, isMediumScreen } = useUtilities();
 
   useEffect(() => {
     if (activityList.items.length <= 0) {
@@ -89,7 +92,7 @@ const ActivityList = () => {
                     {activityStatus === deleteActivityPending ? (
                       <CircularProgress sx={{ size: "1.5rem" }} />
                     ) : (
-                      <DeleteIcon  sx={{fontSize:22}}/>
+                      <DeleteIcon sx={{ fontSize: 22 }} />
                     )}
                   </Tooltip>
                 )}

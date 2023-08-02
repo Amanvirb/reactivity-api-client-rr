@@ -24,21 +24,13 @@ const Item1 = styled(Paper)(({ theme }) => ({
   justifyContent: "center",
   flexGrow: 1,
 }));
-const avatarStyle = {
-  width: 100,
-  height: 100,
-};
-const avatarStyle1 = {
-  width: 40,
-  height: 40,
-};
 
 export default function ActivityListItem({ activity }: Props) {
   const { user } = useAxios();
-  const { isMobile, isMediumScreen } = useUtilities();
+  const { isMobile, isMediumScreen, avatarStyle, avatarStyle1, appFontSize } =
+    useUtilities();
 
   return (
-    // <Box component={"div"}>
     <Item1 elevation={1}>
       <Box
         component="div"
@@ -74,33 +66,37 @@ export default function ActivityListItem({ activity }: Props) {
               p: 2,
             }}
           >
-            <Typography textAlign="left" sx={{ pt: 2 }}>
+            <Typography fontSize={appFontSize} textAlign="left" sx={{ pt: 2 }}>
               {firstLetterUpper(activity.title)}
             </Typography>
-            <Typography textAlign="left" sx={{ pt: 2, pb: 1 }}>
+            <Typography
+              fontSize={appFontSize}
+              textAlign="left"
+              sx={{ pt: 2, pb: 1 }}
+            >
               Host: {activity.hostUsername.toUpperCase()}
             </Typography>
             {activity.hostUsername === user?.username && (
               <Typography
+                fontSize={appFontSize}
                 textAlign="left"
                 sx={{
                   p: 1,
                   color: "#f2722b",
                   border: isMobile ? 0 : "1px solid #f2722b",
-                  width: isMobile ? 50 : 200,
-                  fontSize: isMobile ? 10 : 14,
+                  width: isMobile ? 140 : 200,
                 }}
               >
                 "You are hosting this activity"
               </Typography>
             )}
             <Typography
+              fontSize={appFontSize}
               textAlign="left"
               sx={{
-                // p: 1,
                 color: "#21b6af",
-                width: 200,
-                fontSize: 14,
+                border: 0,
+                width: isMobile ? 140 : 200,
               }}
             >
               {activity.attendees.find((x) => x.username === user?.username) &&
@@ -120,12 +116,15 @@ export default function ActivityListItem({ activity }: Props) {
           borderBottom: "2px solid #D3D3D3",
         }}
       >
-        <QueryBuilderIcon />
-        <Typography sx={{ pl: 1 }}>
+        <QueryBuilderIcon sx={{ fontSize: appFontSize }} />
+        <Typography fontSize={appFontSize} sx={{ pl: 1 }}>
           {format(new Date(activity.date), "yyyy-MM-dd")}
         </Typography>
         <LocationOnIcon sx={{ pl: 2 }} />
-        <Typography sx={{ pl: 1 }}> {activity.venue}</Typography>
+        <Typography fontSize={appFontSize} sx={{ pl: 1 }}>
+          {" "}
+          {activity.venue}
+        </Typography>
       </Box>
       <Box
         sx={{
@@ -153,25 +152,6 @@ export default function ActivityListItem({ activity }: Props) {
             </Box>
           </Tooltip>
         ))}
-        {/* {activity.attendees.map((attendee: ActivityAttendee) => (
-            <Box key={attendee.username} sx={{ pl: 2 }}>
-              <ImageAvatar
-                apiUrl={attendee.image}
-                spacing={2}
-                avatarStyle={avatarStyle1}
-              />
-              <Tooltip title={attendee.username}>
-                <Typography
-                  aria-owns={open ? "mouse-over-popover" : undefined}
-                  aria-haspopup="true"
-                  onMouseEnter={handlePopoverOpen}
-                  onMouseLeave={handlePopoverClose}
-                >
-                  {attendee.username}
-                </Typography>
-              </Tooltip>
-            </Box>
-          ))} */}
       </Box>
       <Box
         sx={{
@@ -182,7 +162,9 @@ export default function ActivityListItem({ activity }: Props) {
         }}
       >
         <Box sx={{ flexGrow: 1 }}>
-          <Typography textAlign="left">{activity.description}</Typography>
+          <Typography fontSize={appFontSize} textAlign="left">
+            {activity.description}
+          </Typography>
         </Box>
         <CommonButton
           text="View"
@@ -192,6 +174,5 @@ export default function ActivityListItem({ activity }: Props) {
         />
       </Box>
     </Item1>
-    // </Box>
   );
 }
