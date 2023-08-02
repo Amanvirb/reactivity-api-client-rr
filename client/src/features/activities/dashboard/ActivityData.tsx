@@ -38,11 +38,10 @@ const ActivityData = () => {
   return (
     <Box component={"div"} sx={{ mt: 10 }}>
       {!activityDetail && <p> Data not Found.</p>}
-
       {!showEditForm && (
         <Container maxWidth="lg">
           <Grid container spacing={4}>
-            <Grid item xs={8}>
+            <Grid item xs={12} md={8}>
               <Grid container spacing={4}>
                 <Grid item xs={12}>
                   <Item>
@@ -57,27 +56,9 @@ const ActivityData = () => {
                     <ActivityDetailMiddle activity={activityDetail} />
                   </Item>
                 </Grid>
-                {/* <Grid item xs={12}>
-                  <Typography
-                    variant="h5"
-                    textAlign="center"
-                    sx={{ backgroundColor: "#1976d2", m: 1, color: "#fff" }}
-                  >
-                    Here you can chat about this event
-                  </Typography>
-                  <Item>
-                    <TextField
-                      multiline
-                      id="outlined-basic"
-                      label="Chat..."
-                      variant="outlined"
-                      sx={{ width: "100%" }}
-                    />
-                  </Item>
-                </Grid> */}
-              </Grid>
+                              </Grid>
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={12} md={4}>
               <Item>
                 <ActivityDetailRightPane activity={activityDetail} />
               </Item>

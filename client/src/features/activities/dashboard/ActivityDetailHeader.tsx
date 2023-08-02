@@ -14,6 +14,7 @@ import CommonButton from "../../../app/common/CommonButton";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import useDispatchReducer from "../../../app/hooks/useDispatchReducer";
 import { format } from "date-fns";
+import useUtilities from "../../../app/hooks/useUtilities";
 
 interface ActivityProps {
   activity: ActivityDetail | null;
@@ -23,6 +24,7 @@ interface ActivityProps {
 const ActivityDetailHeader = ({ activity }: ActivityProps) => {
   const { user, attendActivity, activityStatus } = useAxios();
   const { cancelActivityHandler } = useDispatchReducer();
+  const { appFontSize, isMobile } = useUtilities();
 
   return (
     <>
@@ -39,7 +41,7 @@ const ActivityDetailHeader = ({ activity }: ActivityProps) => {
               display: "flex",
               flexDirection: "row",
               justifyContent: "space-between",
-                            height:30
+              height: 30,
             }}
           >
             <Tooltip
@@ -49,7 +51,11 @@ const ActivityDetailHeader = ({ activity }: ActivityProps) => {
             >
               <ArrowBackIcon />
             </Tooltip>
-            <Typography fontSize={12} color="red" bgcolor={activity?.isCancelled ? "yellow" : "#fff"}>
+            <Typography
+              fontSize={12}
+              color="red"
+              bgcolor={activity?.isCancelled ? "yellow" : "#fff"}
+            >
               {activity?.isCancelled ? "This activity has been cancelled" : ""}
             </Typography>
           </Box>
@@ -62,21 +68,21 @@ const ActivityDetailHeader = ({ activity }: ActivityProps) => {
         <Box
           sx={{
             position: "absolute",
-            top: 200,
+            top: isMobile ? 50 : 200,
             // right:100,
-            left: 30,
+            left: isMobile ? 15 : 30,
             // top: { xs: 10, sm: 20, md: 30, lg: 80 },
             // right: { xs: 10, lg: 100 },
             // left: { xs: 10, lg: 180 },
           }}
         >
-          <Typography textAlign="left" variant="h6">
+          <Typography fontSize={appFontSize} textAlign="left" variant="h6">
             {activity && activity.description}
           </Typography>
-          <Typography textAlign="left" variant="h6">
+          <Typography fontSize={appFontSize} textAlign="left" variant="h6">
             {activity && format(new Date(activity.date), "yyyy-MM-dd")}
           </Typography>
-          <Typography textAlign="left" variant="h6">
+          <Typography fontSize={appFontSize} textAlign="left" variant="h6">
             Hosted by: {activity && activity.hostUsername}
           </Typography>
         </Box>

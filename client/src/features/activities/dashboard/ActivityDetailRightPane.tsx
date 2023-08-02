@@ -6,6 +6,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import useDispatchReducer from "../../../app/hooks/useDispatchReducer";
 import { idle, pending } from "../../../app/common/options/sliceOpt";
 import { Link } from "react-router-dom";
+import useUtilities from "../../../app/hooks/useUtilities";
 interface ActivityProps {
   activity: ActivityDetail | null;
 }
@@ -17,13 +18,13 @@ const avatarStyle1 = {
 
 const ActivityDetailRightPane = ({ activity }: ActivityProps) => {
   const { activityStatus } = useDispatchReducer();
-
+  const { appFontSize, isMobile } = useUtilities();
   return (
     <Box>
       {activityStatus === idle && activity ? (
         <>
           <Typography
-            variant="h5"
+            variant={isMobile ? "h6" : "h5"}
             textAlign="center"
             sx={{ backgroundColor: "#21b6af", m: 1, color: "#fff" }}
           >
@@ -49,7 +50,11 @@ const ActivityDetailRightPane = ({ activity }: ActivityProps) => {
                   avatarStyle={avatarStyle1}
                 />
                 <Link to={`/userprofile/${attd.username}`}>
-                  <Typography textAlign="left" padding={2}>
+                  <Typography
+                    fontSize={appFontSize}
+                    textAlign="left"
+                    padding={2}
+                  >
                     {attd.displayName}
                   </Typography>
                 </Link>

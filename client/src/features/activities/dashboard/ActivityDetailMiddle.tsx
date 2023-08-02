@@ -4,12 +4,14 @@ import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { ActivityDetail } from "../../../app/models/activity";
 import { format } from "date-fns";
+import useUtilities from "../../../app/hooks/useUtilities";
 
 interface ActivityProps {
   activity: ActivityDetail | null;
 }
 
 const ActivityDetailMiddle = ({ activity }: ActivityProps) => {
+  const {appFontSize}=useUtilities();
   return (
     <>
       <Box
@@ -24,7 +26,7 @@ const ActivityDetailMiddle = ({ activity }: ActivityProps) => {
         }}
       >
         <InfoIcon />
-        <Typography textAlign="left" padding={2}>
+        <Typography fontSize={appFontSize} textAlign="left" padding={2}>
           {activity && activity.description}
         </Typography>
       </Box>
@@ -40,7 +42,7 @@ const ActivityDetailMiddle = ({ activity }: ActivityProps) => {
         }}
       >
         <CalendarTodayIcon />
-        <Typography textAlign="left" padding={2}>
+        <Typography fontSize={appFontSize} textAlign="left" padding={2}>
           {activity && format(new Date(activity.date), "yyyy-MM-dd")}
         </Typography>
       </Box>
@@ -56,7 +58,7 @@ const ActivityDetailMiddle = ({ activity }: ActivityProps) => {
         }}
       >
         <LocationOnIcon />
-        <Typography textAlign="left" padding={2}>
+        <Typography fontSize={appFontSize} textAlign="left" padding={2}>
           {activity && activity.venue}
         </Typography>
       </Box>
