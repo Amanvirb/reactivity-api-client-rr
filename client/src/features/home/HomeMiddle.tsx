@@ -7,17 +7,22 @@ import food from "../home/categoryImages/food.jpg";
 import music from "../home/categoryImages/music.jpg";
 import travel from "../home/categoryImages/travel.jpg";
 import HomeStoryCard from "./HomeStoryCard";
+import useUtilities from "../../app/hooks/useUtilities";
 
 const story = ["Food", "Travel", "Music", "Culture"];
 
 const HomeMiddle = () => {
+  const { isMobile } = useUtilities();
+
   return (
     <React.Fragment>
       <Grid
         container
-        sx={{ m: 2, backgroundColor: "#f1f1f1"}}
+        direction="row"
+        justifyContent="center"
+        sx={{ m: 8, backgroundColor: "#f1f1f1" }}
       >
-        <Grid item xs={4}>
+        <Grid item xs={12} md={4}>
           <Box className="gallery">
             <img src={culture} alt="Cutural activirties" />
             <img src={drinks} alt="Drinks" />
@@ -27,10 +32,14 @@ const HomeMiddle = () => {
             <img src={food} alt="Paris" />
           </Box>
         </Grid>
-        <Grid item xs={8}>
-          <Box sx={{ width: 600, margin: "0 auto" }}>
-            <Typography variant="h3">Lorem ipsum dolor sit,</Typography>
-            <Typography variant="h4">consectetur adipiscing elit,</Typography>
+        <Grid item xs={12} md={8}>
+          <Box sx={{ width: isMobile ? 300 : 600, margin: "0 auto" }}>
+            <Typography variant={isMobile ? "h4" : "h3"}>
+              Lorem ipsum dolor sit,
+            </Typography>
+            <Typography variant={isMobile ? "h5" : "h4"}>
+              consectetur adipiscing elit,
+            </Typography>
             <Typography variant="body2">
               Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
               nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
@@ -46,13 +55,13 @@ const HomeMiddle = () => {
           flexDirection: "column",
           m: 2,
           backgroundColor: "#f1f1f1",
-          width:"100%"
+          width: "100%",
         }}
       >
         <Typography align="center" variant="h4">
           Lorem ipsum dolor sit amet,
         </Typography>
-        <Box
+        {/* <Box
           sx={{
             display: "flex",
             flexDirection: "row",
@@ -60,11 +69,20 @@ const HomeMiddle = () => {
             backgroundColor: "#f1f1f1",
             justifyContent:"center"
           }}
+        > */}
+        <Grid
+          container
+          direction="row"
+          justifyContent="center"
+        
         >
-          {story.map((s) => (
-            <HomeStoryCard title={s} />
+          {story.map((s, index) => (
+            <Grid item xs={6} md={3} key={index}>
+              <HomeStoryCard title={s} />
+            </Grid>
           ))}
-        </Box>
+        </Grid>
+        {/* </Box> */}
       </Box>
     </React.Fragment>
   );

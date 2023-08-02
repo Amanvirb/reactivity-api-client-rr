@@ -14,18 +14,22 @@ import DepartureBoardIcon from "@mui/icons-material/DepartureBoard";
 import TheatersIcon from "@mui/icons-material/Theaters";
 import LocalBarIcon from "@mui/icons-material/LocalBar";
 import { Link } from "react-router-dom";
+import useUtilities from "../../app/hooks/useUtilities";
 
 interface CategoryProps {
   title: string;
 }
 
 const HomeStoryCard = ({ title }: CategoryProps) => {
+
+  const { isMobile } = useUtilities();
+
   return (
     <Card
       sx={{
-        width: 250,
-        height: 200,
-        m: 1,
+        width: isMobile ? 150 : 250,
+        height: isMobile? 100 : 200,
+        m: '1px auto',
         p: 1,
         textAlign: "center",
         ":hover": {

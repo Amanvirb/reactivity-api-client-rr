@@ -11,7 +11,7 @@ const HomePage = () => {
   return (
     <Box component={"div"} sx={{display:'flex', flexDirection:'column', height: "100vh", alignItems:"center"}}>
       <HomeHeader />
-      <HomeMiddle />
+      <HomeMiddle/>
       {/* <Typography variant="h2" align="center" margin={4}>
         Homepage is under Construction
       </Typography> */}
