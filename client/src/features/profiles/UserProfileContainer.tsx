@@ -8,6 +8,7 @@ import UserProfilePhotos from "./UserProfilePhotos";
 import UserEvents from "./UserEvents";
 import UserFollowers from "./UserFollowers";
 import { Grid } from "@mui/material";
+import useUtilities from "../../app/hooks/useUtilities";
 
 interface ProfileProps {
   userProfile: Profile;
@@ -44,6 +45,7 @@ function a11yProps(index: number) {
 
 const UserProfileContainer = ({ userProfile }: ProfileProps) => {
   const [value, setValue] = React.useState(0);
+  const { isMobile } = useUtilities();
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -51,7 +53,24 @@ const UserProfileContainer = ({ userProfile }: ProfileProps) => {
 
   return (
     <Grid container spacing={2}>
-      <Grid item xs={9}>
+      <Grid item xs={12} md={3}>
+        <Tabs
+          orientation={isMobile ? "horizontal" : "vertical"}
+          variant="scrollable"
+          value={value}
+          onChange={handleChange}
+          scrollButtons
+          allowScrollButtonsMobile
+          aria-label="User Profile"
+        >
+          <Tab label="About" {...a11yProps(0)} />
+          <Tab label="Photos" {...a11yProps(1)} />
+          <Tab label="Events" {...a11yProps(2)} />
+          <Tab label="Followers" {...a11yProps(3)} />
+          <Tab label="Following" {...a11yProps(4)} />
+        </Tabs>
+      </Grid>
+      <Grid item xs={12} md={9}>
         <TabPanel value={value} index={0}>
           <UserAbout userProfile={userProfile} />
         </TabPanel>
@@ -73,22 +92,6 @@ const UserProfileContainer = ({ userProfile }: ProfileProps) => {
             predicate="following"
           />
         </TabPanel>
-      </Grid>
-      <Grid item xs={3}>
-        <Tabs
-          orientation="vertical"
-          variant="scrollable"
-          value={value}
-          onChange={handleChange}
-          aria-label="Vertical tabs example"
-          sx={{ borderLeft: 1, borderColor: "divider", minWidth: 130 }}
-        >
-          <Tab label="About" {...a11yProps(0)} />
-          <Tab label="Photos" {...a11yProps(1)} />
-          <Tab label="Events" {...a11yProps(2)} />
-          <Tab label="Followers" {...a11yProps(3)} />
-          <Tab label="Following" {...a11yProps(4)} />
-        </Tabs>
       </Grid>
     </Grid>
   );
