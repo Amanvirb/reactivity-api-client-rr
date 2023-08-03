@@ -22,7 +22,11 @@ const UserProfileHeader = ({ userProfile }: ProfileProps) => {
   const {isMobile}=useUtilities();
 
   return (
-    <Grid container direction="row" justifyContent="flex-start" alignItems="center">
+    <Grid container
+    sx={{minHeight:300}}
+    direction="row" 
+    justifyContent="flex-start"
+     alignItems="center">
       <Grid item xs={12} md={8}>
         <Box
           sx={{
@@ -66,6 +70,7 @@ const UserProfileHeader = ({ userProfile }: ProfileProps) => {
               display: "flex",
               justifyContent: "center",
               p: 1,
+              minHeight:90
             }}
           >
             {userProfile.username !== currentUser &&

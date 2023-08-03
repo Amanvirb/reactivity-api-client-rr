@@ -52,7 +52,7 @@ const UserProfileContainer = ({ userProfile }: ProfileProps) => {
   };
 
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} sx={{minHeight:600}}>
       <Grid item xs={12} md={3}>
         <Tabs
           orientation={isMobile ? "horizontal" : "vertical"}
