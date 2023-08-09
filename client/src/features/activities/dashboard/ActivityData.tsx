@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Box, Container, Grid, Paper, styled } from "@mui/material";
+import { Box, Container, Grid, Paper, TextField, Typography, styled } from "@mui/material";
 import useAxios from "../../../app/hooks/useAxios";
 import { useParams } from "react-router-dom";
 import ActivityDetailHeader from "./ActivityDetailHeader";
@@ -42,7 +42,7 @@ const ActivityData = () => {
         <Container maxWidth="lg">
           <Grid container spacing={4}>
             <Grid item xs={12} md={8}>
-              <Grid container spacing={4}>
+              <Grid container spacing={4} sx={{pb:4}}>
                 <Grid item xs={12}>
                   <Item>
                     <ActivityDetailHeader
@@ -56,7 +56,25 @@ const ActivityData = () => {
                     <ActivityDetailMiddle activity={activityDetail} />
                   </Item>
                 </Grid>
-                              </Grid>
+                <Grid item xs={12}>
+                  <Typography
+                    variant="h5"
+                    textAlign="center"
+                    // sx={{ backgroundColor: "#1976d2", m: 1, color: "#fff" }}
+                  >
+                    Here you can chat about this event
+                  </Typography>
+                  <Item>
+                    <TextField
+                      multiline
+                      id="outlined-basic"
+                      label="Chat..."
+                      variant="outlined"
+                      sx={{ width: "100%" }}
+                    />
+                  </Item>
+                </Grid>
+              </Grid>
             </Grid>
             <Grid item xs={12} md={4}>
               <Item>
@@ -66,11 +84,6 @@ const ActivityData = () => {
           </Grid>
         </Container>
       )}
-      {/* {showEditForm && (
-        <Box sx={{ border: 1, width: 800, margin: "0 auto" }}>
-          <ActivityEditForm />
-        </Box>
-      )} */}
     </Box>
   );
 };
