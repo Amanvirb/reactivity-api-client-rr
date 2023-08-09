@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@mui/material": "^5.14.4",
     "ts-jest": "^29.1.1"
   }
 }
