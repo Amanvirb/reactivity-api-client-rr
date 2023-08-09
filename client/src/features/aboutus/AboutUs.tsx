@@ -5,9 +5,6 @@ const AboutUs = () => {
   return (
     <Box component="div"  sx={{ m: 6 }}>
         This page is under Construction
-        This page is under Construction
-        This page is under Construction
-        This page is under Construction       
     </Box>
   )
 }
