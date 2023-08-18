@@ -43,7 +43,6 @@ axios.interceptors.response.use(
         JSON.parse(pagination)
       );
       return response as AxiosResponse<PaginatedResponse<any>>;
-      return response;
     }
     return response;
   },
@@ -74,6 +73,9 @@ axios.interceptors.response.use(
           )
         ) {
           // dispatch(signOut());
+          localStorage.removeItem("token");
+          localStorage.removeItem("currentuser");
+          router.navigate("/loginform");
           toast.error("Session expired - please login again");
         }
         break;
@@ -125,7 +127,7 @@ const Account = {
   register: (user: any) => requests.post<void>("/account/register", user),
   fbLogin: (accessToken: string) =>
     requests.post<User>(`/account/fbLogin?accessToken=${accessToken}`, {}),
-  // refreshToken: () => requests.post<User>('/account/refreshToken', {}),
+  refreshToken: () => requests.post<User>('/account/refreshToken', {}),
   verifyEmail: (token: string, email: string) =>
     requests.post<void>(
       `/account/verifyEmail?token=${token}&email=${email}`,

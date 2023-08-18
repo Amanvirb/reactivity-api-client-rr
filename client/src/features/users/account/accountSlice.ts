@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, isAnyOf } from "@reduxjs/toolkit";
 import { User, VerifyEmail } from "../../../app/models/account";
 import { router } from "../../../app/layout/Routes";
 import { FieldValues } from "react-hook-form";
@@ -10,6 +10,7 @@ import {
   registerPending,
 } from "../../../app/common/options/sliceOpt";
 import { toast } from "react-toastify";
+import { act } from "react-dom/test-utils";
 interface AccountState {
   user: User | null;
   accountStatus: string;
@@ -60,6 +61,18 @@ export const signInUser = createAsyncThunk<User, FieldValues>(
   }
 );
 
+export const fetchRefreshToken = createAsyncThunk<User>(
+  "account/fetchRefreshToken",
+  async (_, thunkAPI) => {
+    try {
+      const response = await agent.Account.refreshToken();
+      return response;
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue({ error: error.data });
+    }
+  }
+);
+
 export const fbSignInUser = createAsyncThunk<User, string>(
   "account/fbsigninuser",
   async (accessToken, thunkAPI) => {
@@ -100,9 +113,10 @@ export const accountSlice = createSlice({
     signOut: (state) => {
       state.user = null;
       localStorage.removeItem("token");
+      localStorage.removeItem("currentuser");
       router.navigate("/");
     },
-  
+
     // setUser: (state, action) => {
     //   let claims = JSON.parse(atob(action.payload.token.split('.')[1]))
     //   let roles =
@@ -123,9 +137,10 @@ export const accountSlice = createSlice({
       state.accountStatus = idle;
     });
 
-    builder.addCase(registerUser.rejected, (state, action) => {
-      throw action.payload;
-    });
+    // builder.addCase(registerUser.rejected, (state, action) => {
+    //   throw action.payload;
+    // });
+    
     builder.addCase(verifyEmail.pending, (state) => {
       state.accountStatus = pending;
     });
@@ -134,9 +149,9 @@ export const accountSlice = createSlice({
       state.accountStatus = idle;
     });
 
-    builder.addCase(verifyEmail.rejected, (state, action) => {
-      throw action.payload;
-    });
+    // builder.addCase(verifyEmail.rejected, (state, action) => {
+    //   throw action.payload;
+    // });
 
     builder.addCase(signInUser.pending, (state) => {
       state.accountStatus = loginPending;
@@ -145,9 +160,21 @@ export const accountSlice = createSlice({
       state.user = action.payload;
       state.accountStatus = idle;
     });
-    builder.addCase(signInUser.rejected, (state, action) => {
-      throw action.payload;
+    // builder.addCase(signInUser.rejected, (state, action) => {
+    //   state.accountStatus = idle;
+    //   throw action.payload;
+    // });
+    builder.addCase(fetchRefreshToken.pending, (state) => {
+      state.accountStatus = loginPending;
     });
+    builder.addCase(fetchRefreshToken.fulfilled, (state, action) => {
+      state.user = action.payload;
+      state.accountStatus = idle;
+    });
+    // builder.addCase(fetchRefreshToken.rejected, (state, action) => {
+    //   state.accountStatus = idle;
+    //   throw action.payload;
+    // });
 
     builder.addCase(fbSignInUser.pending, (state) => {
       state.accountStatus = pending;
@@ -156,15 +183,20 @@ export const accountSlice = createSlice({
       state.user = action.payload;
       state.accountStatus = idle;
     });
-    builder.addCase(fbSignInUser.rejected, (state, action) => {
-      throw action.payload;
-    });
+  
+    // builder.addCase(fbSignInUser.rejected, (state, action) => {
+    //   state.accountStatus = idle;
+    //   throw action.payload;
+    // });
 
-    builder.addCase(fetchCurrentUser.rejected, (state, action) => {
-      state.user = null;
-      localStorage.removeItem("user");
-      router.navigate("/");
-    });
+    // builder.addCase(fetchCurrentUser.rejected, (state, action) => {
+    //   state.user = null;
+    //   state.accountStatus = idle;
+    //   localStorage.removeItem("token");
+    //   localStorage.removeItem("currentuser");
+    //   router.navigate("/");
+    // });
+
     builder.addCase(fetchCurrentUser.fulfilled, (state, action) => {
       state.user = action.payload;
       state.accountStatus = idle;
@@ -173,6 +205,25 @@ export const accountSlice = createSlice({
     builder.addCase(fetchCurrentUser.pending, (state) => {
       state.accountStatus = pending;
     });
+
+    builder.addMatcher(
+      isAnyOf(
+        fetchCurrentUser.rejected,
+        fbSignInUser.rejected,
+        fetchRefreshToken.rejected,
+        signInUser.rejected,
+        verifyEmail.rejected,
+        registerUser.rejected
+      ),
+      (state, action) => {
+        state.user = null;
+        state.accountStatus = idle;
+        localStorage.removeItem("token");
+        localStorage.removeItem("currentuser");
+        // throw action.error;
+      }
+    );
+
   },
 });
 
