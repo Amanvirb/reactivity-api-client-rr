@@ -66,6 +66,8 @@ export const fetchRefreshToken = createAsyncThunk<User>(
   async (_, thunkAPI) => {
     try {
       const response = await agent.Account.refreshToken();
+      localStorage.setItem("token", response.token);
+      localStorage.setItem("currentuser", response.username);
       return response;
     } catch (error: any) {
       return thunkAPI.rejectWithValue({ error: error.data });

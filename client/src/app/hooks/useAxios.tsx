@@ -6,6 +6,7 @@ import {
   fetchActivityDetailAsync,
   fetchAttendActivityAsync,
   updateActivityAsync,
+  uploadFileAsync,
 } from "../../features/activities/activitySlice";
 import {
   deleteUserPhototAsync,
@@ -142,6 +143,11 @@ const useAxios = () => {
       dispatch(fetchActivityAsync());
     });
   };
+  const uploadFileHandler = (data: Blob) => {
+    console.log("fileeee dataaaa is", data);
+    dispatch(uploadFileAsync(data))
+
+  }
 
   return {
     user,
@@ -166,6 +172,7 @@ const useAxios = () => {
     blogStatus,
     loading,
     blog,
+    uploadFileHandler,
     currentBlogHandler,
     updateBlogHandler,
     deleteBlogHandler,

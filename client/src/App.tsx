@@ -19,24 +19,40 @@ function App() {
   const [delay, setDelay] = useState<number>(0);
   const { accountStatus } = useAxios();
   const { user } = useAxios();
-  const token = localStorage.getItem("token");
   const dispatch = useAppDispatch();
 
+  const tokenIntervalCalculater = () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const jwtToken = JSON.parse(atob(token.split('.')[1]));
+      console.log("splited token is", jwtToken);
+
+      const expires = new Date(jwtToken.exp * 1000);
+      const timeout = expires.getTime() - Date.now() - (60 * 1000);
+
+      console.log(Date.now() - (60 * 1000))
+      setDelay(Math.abs(timeout));
+      console.log("timeout is", timeout);
+    }
+  }
+
   const initApp = useCallback(async () => {
+    const token = localStorage.getItem("token");
+
     if (token) {
       try {
         await dispatch(fetchCurrentUser());
-
+        tokenIntervalCalculater();
       } catch (error) {
         localStorage.removeItem("token");
         console.log(error);
       }
     }
-  }, [dispatch, token]);
+  }, [dispatch]);
 
-  useEffect(() => {
+  useEffectOnce(() => {
     initApp();
-  }, [initApp]);
+  });
 
   // useEffectOnce(() => {
   //   console.log("In useEffectONCE")
@@ -50,28 +66,32 @@ function App() {
   //     console.log("timeout is", timeout);
   //   }
   // })
+  const localToken = localStorage.getItem("token");
+  useInterval(
+    async () => {
+      
 
-  // useInterval(
-  //   async () => {
-  //     // Your custom logic here
-  //     if (user && user.token) {
+      // Your custom logic here
+      if (localToken) {
 
-  //       const jwtToken = JSON.parse(atob(user.token.split('.')[1]));
-  //       console.log("splited token is", jwtToken);
+        // const jwtToken = JSON.parse(atob(token.split('.')[1]));
+        // console.log("splited token is", jwtToken);
 
-  //       const expires = new Date(jwtToken.exp * 1000);
-  //       const timeout = expires.getTime() - Date.now() - (60 * 1000);
+        // const expires = new Date(jwtToken.exp * 1000);
+        // const timeout = expires.getTime() - Date.now() - (60 * 1000);
 
-  //       console.log(Date.now() - (60 * 1000))
-  //       setDelay(Math.abs(timeout));
-  //       console.log("timeout is", timeout);
-  //       // setCount(count + 1)
-  //       await dispatch(fetchRefreshToken());
-  //     }
-  //   },
-  //   // Delay in milliseconds or null to stop it
-  //   (token || delay > 0) ? delay : null,
-  // )
+        // console.log(Date.now() - (60 * 1000))
+        // setDelay(Math.abs(timeout));
+        // console.log("timeout is", timeout);
+        // setCount(count + 1)
+        await dispatch(fetchRefreshToken());
+        tokenIntervalCalculater();
+
+      }
+    },
+    // Delay in milliseconds or null to stop it
+    (localToken || delay > 0) ? delay : null,
+  )
 
   if (accountStatus === pending) return <p>Loading...</p>;
 

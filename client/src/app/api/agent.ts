@@ -35,7 +35,7 @@ axios.interceptors.request.use((config) => {
 
 axios.interceptors.response.use(
   async (response) => {
-    if (process.env.NODE_ENV === "development") await sleep(500);
+    // if (process.env.NODE_ENV === "development") await sleep(500);
     const pagination = response.headers["pagination"];
     if (pagination) {
       response.data = new PaginatedResponse(
@@ -119,6 +119,15 @@ const Activities = {
 
   deleteActivity: (id: string) => requests.del<void>(`/activities/${id}`),
   // attend: (id: string) => requests.post<void>(`/activities/${id}/attend`, {}),
+
+  uploadFile: (file: Blob) => {
+    // let formData = new FormData();
+    // formData.append("File", file);
+    // return axios.post("/ActivityFile/SaveReport", file, {
+    //   headers: { "Content-type": "multipart/form-data" },
+    // });
+    return axios.post('/activityFile/savereport', file);
+  },
 };
 
 const Account = {

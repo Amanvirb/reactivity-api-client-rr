@@ -24,7 +24,6 @@ import { User } from "../../app/models/account";
 import { FieldValues } from "react-hook-form";
 import { toast } from "react-toastify";
 
-
 interface ActivityState {
   activityList: Activity;
   activityDetail: ActivityDetail | null;
@@ -125,7 +124,19 @@ export const deleteActivityAsync = createAsyncThunk<void, string>(
   "activitydetail/deleteActivityAsync",
   async (data, thunkAPI) => {
     try {
+      console.log("fileeee dataaaa is", data);
       await agent.Activities.deleteActivity(data);
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue({ error: error.data });
+    }
+  }
+);
+
+export const uploadFileAsync = createAsyncThunk<void, Blob>(
+  "activitydetail/uploadFileAsync",
+  async (file, thunkAPI) => {
+    try {
+      await agent.Activities.uploadFile(file);
     } catch (error: any) {
       return thunkAPI.rejectWithValue({ error: error.data });
     }
@@ -303,9 +314,7 @@ export const activitySlice = createSlice({
       state.activityStatus = editCreateActivityPending;
     });
 
-
     builder.addCase(updateActivityAsync.fulfilled, (state, action) => {
-     
       let updatedActivity: ActivityDetail | null = null;
       //update activity list
       if (state.activityList.items.length > 0) {
@@ -318,7 +327,7 @@ export const activitySlice = createSlice({
         if (itemIndex === undefined || itemIndex < 0) return;
 
         if (itemIndex >= 0) {
-        //  state.activityList.items[itemIndex] = action.meta.arg;
+          //  state.activityList.items[itemIndex] = action.meta.arg;
           updatedActivity = {
             ...state.activityList.items[itemIndex],
             ...action.meta.arg,
