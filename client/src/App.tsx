@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import NavBar from "./app/layout/NavBar";
 import useAxios from "./app/hooks/useAxios";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useAppDispatch } from "./app/store/configureStore";
 import { fetchCurrentUser, fetchRefreshToken } from "./features/users/account/accountSlice";
 import { pending } from "./app/common/options/sliceOpt";
@@ -18,21 +18,15 @@ function App() {
   // Dynamic delay
   const [delay, setDelay] = useState<number>(0);
   const { accountStatus } = useAxios();
-  const { user } = useAxios();
   const dispatch = useAppDispatch();
 
   const tokenIntervalCalculater = () => {
     const token = localStorage.getItem("token");
     if (token) {
       const jwtToken = JSON.parse(atob(token.split('.')[1]));
-      console.log("splited token is", jwtToken);
-
       const expires = new Date(jwtToken.exp * 1000);
       const timeout = expires.getTime() - Date.now() - (60 * 1000);
-
-      console.log(Date.now() - (60 * 1000))
       setDelay(Math.abs(timeout));
-      console.log("timeout is", timeout);
     }
   }
 
@@ -54,36 +48,11 @@ function App() {
     initApp();
   });
 
-  // useEffectOnce(() => {
-  //   console.log("In useEffectONCE")
-  //   if (user && user.token) {
-  //     console.log("In useEffectONCE111")
-  //     const jwtToken = JSON.parse(atob(user.token.split('.')[1]));
-  //     const expires = new Date(jwtToken.exp * 1000);
-  //     const timeout = expires.getTime() - Date.now() - (60 * 1000);
-  //     console.log(Date.now() - (60 * 1000))
-  //     setDelay(Math.abs(timeout));
-  //     console.log("timeout is", timeout);
-  //   }
-  // })
   const localToken = localStorage.getItem("token");
   useInterval(
     async () => {
-      
-
       // Your custom logic here
       if (localToken) {
-
-        // const jwtToken = JSON.parse(atob(token.split('.')[1]));
-        // console.log("splited token is", jwtToken);
-
-        // const expires = new Date(jwtToken.exp * 1000);
-        // const timeout = expires.getTime() - Date.now() - (60 * 1000);
-
-        // console.log(Date.now() - (60 * 1000))
-        // setDelay(Math.abs(timeout));
-        // console.log("timeout is", timeout);
-        // setCount(count + 1)
         await dispatch(fetchRefreshToken());
         tokenIntervalCalculater();
 

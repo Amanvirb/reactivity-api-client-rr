@@ -2,7 +2,6 @@ import {
   createAsyncThunk,
   createEntityAdapter,
   createSlice,
-  createReducer,
 } from "@reduxjs/toolkit";
 import agent from "../../app/api/agent";
 import {
@@ -132,17 +131,6 @@ export const deleteActivityAsync = createAsyncThunk<void, string>(
   }
 );
 
-export const uploadFileAsync = createAsyncThunk<void, Blob>(
-  "activitydetail/uploadFileAsync",
-  async (file, thunkAPI) => {
-    try {
-      await agent.Activities.uploadFile(file);
-    } catch (error: any) {
-      return thunkAPI.rejectWithValue({ error: error.data });
-    }
-  }
-);
-
 function initParams() {
   return {
     isGoing: false,
@@ -230,28 +218,6 @@ export const activitySlice = createSlice({
     clearActivityDetail: (state) => {
       state.activityDetail = initActivityDetail();
     },
-    // updateActivityList: (state, action) => {
-    //   console.log("reducer payload", action.payload);
-    //   if (state.activityList.items.length > 0) {
-    //     console.log("itemindex", state.activityList.items);
-
-    //     const itemIndex = state.activityList.items.findIndex(
-    //       (x) => x.id === action.payload.id
-    //     );
-    //     // let newItem = state.activityList.items.find(
-    //     //   (x) => x.id === action.payload.id
-    //     // );
-    //     if (itemIndex === undefined || itemIndex < 0) return;
-
-    //     if (itemIndex >= 0) {
-    //       let updatedActivity = {
-    //         ...state.activityList.items[itemIndex],
-    //         ...action.payload,
-    //       };
-    //       state.activityList.items[itemIndex] = updatedActivity;
-    //     }
-    //   }
-    // },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchActivityAsync.pending, (state, action) => {
@@ -321,13 +287,9 @@ export const activitySlice = createSlice({
         const itemIndex = state.activityList.items.findIndex(
           (x) => x.id === action.meta.arg.id
         );
-        // let newItem = state.activityList.items.find(
-        //   (x) => x.id === action.payload.id
-        // );
         if (itemIndex === undefined || itemIndex < 0) return;
 
         if (itemIndex >= 0) {
-          //  state.activityList.items[itemIndex] = action.meta.arg;
           updatedActivity = {
             ...state.activityList.items[itemIndex],
             ...action.meta.arg,
@@ -393,10 +355,6 @@ export const activitySlice = createSlice({
   },
 });
 
-// export const activitySelectors = activitiesAdapter.getSelectors(
-//   (state: RootState) => state.activity
-// );
-
 export const {
   setParams,
   setPagination,
@@ -404,5 +362,4 @@ export const {
   cancelActivity,
   setFormActivity,
   clearActivityDetail,
-  // updateActivityList,
 } = activitySlice.actions;

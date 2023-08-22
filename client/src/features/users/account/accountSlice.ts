@@ -10,7 +10,7 @@ import {
   registerPending,
 } from "../../../app/common/options/sliceOpt";
 import { toast } from "react-toastify";
-import { act } from "react-dom/test-utils";
+
 interface AccountState {
   user: User | null;
   accountStatus: string;
@@ -139,10 +139,6 @@ export const accountSlice = createSlice({
       state.accountStatus = idle;
     });
 
-    // builder.addCase(registerUser.rejected, (state, action) => {
-    //   throw action.payload;
-    // });
-    
     builder.addCase(verifyEmail.pending, (state) => {
       state.accountStatus = pending;
     });
@@ -151,10 +147,6 @@ export const accountSlice = createSlice({
       state.accountStatus = idle;
     });
 
-    // builder.addCase(verifyEmail.rejected, (state, action) => {
-    //   throw action.payload;
-    // });
-
     builder.addCase(signInUser.pending, (state) => {
       state.accountStatus = loginPending;
     });
@@ -162,10 +154,6 @@ export const accountSlice = createSlice({
       state.user = action.payload;
       state.accountStatus = idle;
     });
-    // builder.addCase(signInUser.rejected, (state, action) => {
-    //   state.accountStatus = idle;
-    //   throw action.payload;
-    // });
     builder.addCase(fetchRefreshToken.pending, (state) => {
       state.accountStatus = loginPending;
     });
@@ -173,10 +161,6 @@ export const accountSlice = createSlice({
       state.user = action.payload;
       state.accountStatus = idle;
     });
-    // builder.addCase(fetchRefreshToken.rejected, (state, action) => {
-    //   state.accountStatus = idle;
-    //   throw action.payload;
-    // });
 
     builder.addCase(fbSignInUser.pending, (state) => {
       state.accountStatus = pending;
@@ -185,19 +169,6 @@ export const accountSlice = createSlice({
       state.user = action.payload;
       state.accountStatus = idle;
     });
-  
-    // builder.addCase(fbSignInUser.rejected, (state, action) => {
-    //   state.accountStatus = idle;
-    //   throw action.payload;
-    // });
-
-    // builder.addCase(fetchCurrentUser.rejected, (state, action) => {
-    //   state.user = null;
-    //   state.accountStatus = idle;
-    //   localStorage.removeItem("token");
-    //   localStorage.removeItem("currentuser");
-    //   router.navigate("/");
-    // });
 
     builder.addCase(fetchCurrentUser.fulfilled, (state, action) => {
       state.user = action.payload;
@@ -225,7 +196,6 @@ export const accountSlice = createSlice({
         // throw action.error;
       }
     );
-
   },
 });
 

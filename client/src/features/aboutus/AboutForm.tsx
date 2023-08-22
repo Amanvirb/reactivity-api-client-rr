@@ -1,14 +1,10 @@
-import { Box, Button, TextField } from '@mui/material'
+import { Box, TextField } from '@mui/material'
 import React from 'react'
 import { useForm } from 'react-hook-form';
-import useAxios from '../../app/hooks/useAxios';
-import { FieldValues } from 'react-hook-form';
 import { commonBtnStyles } from '../../app/common/options/commonBtnStyles';
 import { LoadingButton } from '@mui/lab';
 
 const AboutForm = () => {
-
-    const { uploadFileHandler } = useAxios();
 
     const {
         register,

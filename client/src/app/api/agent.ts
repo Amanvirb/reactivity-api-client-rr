@@ -10,12 +10,8 @@ import { User } from "../models/account";
 import { Activity, ActivityDetail } from "../models/activity";
 import { PaginatedResponse } from "../models/pagination";
 import { Photo, Profile, UserActivity } from "../models/profile";
-import { useNavigate } from "react-router";
 import { router } from "../layout/Routes";
-import { AppDispatch, useAppDispatch } from "../store/configureStore";
-import { signOut } from "../../features/users/account/accountSlice";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
 
 const sleep = (delay: number) => {
   return new Promise((resolve) => {
@@ -103,7 +99,6 @@ const requests = {
 };
 
 const Activities = {
-
   createActivity: (activity: Partial<ActivityDetail>) =>
     requests.post<void>("/activities", activity),
   updateActivity: (activity: Partial<ActivityDetail>) =>
@@ -120,14 +115,28 @@ const Activities = {
   deleteActivity: (id: string) => requests.del<void>(`/activities/${id}`),
   // attend: (id: string) => requests.post<void>(`/activities/${id}/attend`, {}),
 
-  uploadFile: (file: Blob) => {
-    // let formData = new FormData();
-    // formData.append("File", file);
-    // return axios.post("/ActivityFile/SaveReport", file, {
-    //   headers: { "Content-type": "multipart/form-data" },
-    // });
-    return axios.post('/activityFile/savereport', file);
-  },
+  uploadFile: (formData: FormData) =>
+    axios.post<void>(`/ActivityFile/SaveReport`, formData, {
+      headers: {
+        "Content-Disposition":
+          "attachment; filename=KoReport.xlsx; filename*=UTF-8''KoReport.xlsx",
+      },
+    }),
+    uploadFileRecieve: (formData: FormData) => axios.post<Blob>(`/ActivityFile/GetReport`, formData,
+    {
+      headers: {
+        'Content-Disposition': "attachment; filename=KoReport.xlsx; filename*=UTF-8''KoReport.xlsx",
+      },
+      responseType: 'blob'
+    }),
+
+  // uploadFile: (file: FormData) => {
+  //   let formData = new FormData();
+  //   formData.append("File", file);
+  //   return axios.post("/ActivityFile/SaveReport", file, {
+  //     headers: { "Content-type": "multipart/form-data" },
+  //   });
+  // },
 };
 
 const Account = {
@@ -136,7 +145,7 @@ const Account = {
   register: (user: any) => requests.post<void>("/account/register", user),
   fbLogin: (accessToken: string) =>
     requests.post<User>(`/account/fbLogin?accessToken=${accessToken}`, {}),
-  refreshToken: () => requests.post<User>('/account/refreshToken', {}),
+  refreshToken: () => requests.post<User>("/account/refreshToken", {}),
   verifyEmail: (token: string, email: string) =>
     requests.post<void>(
       `/account/verifyEmail?token=${token}&email=${email}`,
