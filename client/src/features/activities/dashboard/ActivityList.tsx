@@ -99,6 +99,7 @@ const ActivityList = () => {
               </Box>
               <Item key={activity.id}>
                 <ActivityListItem activity={activity} />
+                <p>Testing</p>
               </Item>
             </Box>
           ))}
