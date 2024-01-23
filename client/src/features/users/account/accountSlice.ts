@@ -10,15 +10,18 @@ import {
   registerPending,
 } from "../../../app/common/options/sliceOpt";
 import { toast } from "react-toastify";
+import { error } from "console";
 
 interface AccountState {
   user: User | null;
   accountStatus: string;
+  error: string;
 }
 
 const initialState: AccountState = {
   user: null,
   accountStatus: idle,
+  error: "",
 };
 
 export const registerUser = createAsyncThunk<void, FieldValues>(
@@ -54,8 +57,10 @@ export const signInUser = createAsyncThunk<User, FieldValues>(
       localStorage.setItem("token", response.token);
       localStorage.setItem("currentuser", response.username);
       console.log("response is::::", response);
+      router.navigate("/activities");
       return response;
     } catch (error: any) {
+      console.log("errorr data is::", JSON.stringify(error));
       return thunkAPI.rejectWithValue({ error: error.data });
     }
   }
@@ -154,6 +159,12 @@ export const accountSlice = createSlice({
       state.user = action.payload;
       state.accountStatus = idle;
     });
+    builder.addCase(signInUser.rejected, (state, action) => {
+      console.log("erroor at rejection is::", JSON.stringify(action.error));
+      // state.error=action.error;
+      state.accountStatus = idle;
+    });
+
     builder.addCase(fetchRefreshToken.pending, (state) => {
       state.accountStatus = loginPending;
     });
@@ -184,7 +195,7 @@ export const accountSlice = createSlice({
         fetchCurrentUser.rejected,
         fbSignInUser.rejected,
         fetchRefreshToken.rejected,
-        signInUser.rejected,
+        // signInUser.rejected,
         verifyEmail.rejected,
         registerUser.rejected
       ),

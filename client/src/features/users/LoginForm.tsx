@@ -8,22 +8,20 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useAppDispatch } from "../../app/store/configureStore";
 import useEventListner from "../../app/hooks/useEventListner";
 import { LoadingButton } from "@mui/lab";
 import { commonBtnStyles } from "../../app/common/options/commonBtnStyles";
-import { idle, loginPending } from "../../app/common/options/sliceOpt";
+import { loginPending } from "../../app/common/options/sliceOpt";
 import useAxios from "../../app/hooks/useAxios";
 
 const LoginForm = () => {
-  const dispatch = useAppDispatch();
   const { loginHandler } = useEventListner();
   const { accountStatus } = useAxios();
 
   const {
     register,
     handleSubmit,
-    formState: { isSubmitting, errors, isValid },
+    formState: { errors },
   } = useForm({
     mode: "all",
     defaultValues: {
@@ -41,7 +39,7 @@ const LoginForm = () => {
           </Typography>
           <Box
             component={"form"}
-            onSubmit={handleSubmit(loginHandler)}
+            // onSubmit={handleSubmit(loginHandler)}
             className="form-container"
           >
             <Stack
@@ -68,6 +66,7 @@ const LoginForm = () => {
               />
               <TextField
                 margin="normal"
+                type="password"
                 label="Password"
                 fullWidth
                 {...register("password", {
@@ -90,6 +89,7 @@ const LoginForm = () => {
                 }}
               >
                 <LoadingButton
+                  onClick={handleSubmit(loginHandler)}
                   loading={accountStatus === loginPending}
                   type="submit"
                   sx={commonBtnStyles.btnStyle}
@@ -97,6 +97,7 @@ const LoginForm = () => {
                   Login
                 </LoadingButton>
                 {/* <LoadingButton
+                  onClick={handleSubmit(loginHandler1)}
                   loading={accountStatus === loginPending}
                   type="submit"
                   sx={commonBtnStyles.btnStyle}
@@ -106,6 +107,20 @@ const LoginForm = () => {
               </Box>
             </Stack>
           </Box>
+          {/* <Box
+            component={"form"}
+            // onSubmit={handleSubmit(loginHandler)}
+            className="form-container"
+          >
+            <LoadingButton
+              onClick={handleSubmit(loginHandler1)}
+              loading={accountStatus === loginPending}
+              type="submit"
+              sx={commonBtnStyles.btnStyle}
+            >
+              Forget Password
+            </LoadingButton>
+          </Box> */}
         </CardContent>
       </Card>
     </Box>

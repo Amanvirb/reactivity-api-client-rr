@@ -73,7 +73,7 @@ const UserProfileHeader = ({ userProfile }: ProfileProps) => {
               minHeight:90
             }}
           >
-            {userProfile.username !== currentUser &&
+            {userProfile && userProfile.username !== currentUser &&
               (followUnfollowStatus === pending ? (
                 <p>Loading...</p>
               ) : (

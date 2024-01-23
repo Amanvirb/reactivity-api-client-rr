@@ -23,7 +23,7 @@ const UserProfilePage = () => {
     if (username && profile?.username !== username) {
       getUserProfile(username);
     }
-  }, [username]);
+  }, [getUserProfile, profile?.username, username]);
 
   return (
     <Box component={"div"} sx={{ mt: 10 }}>

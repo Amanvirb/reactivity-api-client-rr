@@ -74,6 +74,12 @@ axios.interceptors.response.use(
           router.navigate("/loginform");
           toast.error("Session expired - please login again");
         }
+        if (status === 401) {
+          console.log("errorr data is::", JSON.stringify(data));
+          if(data==="Invalid password") toast.error("Please ensure correct Password");
+          if(data==="Invalid email") toast.error("Please ensure correct Email");
+          router.navigate("/loginform");
+        }
         break;
       case 404:
         router.navigate("/not-found");
@@ -122,12 +128,13 @@ const Activities = {
           "attachment; filename=KoReport.xlsx; filename*=UTF-8''KoReport.xlsx",
       },
     }),
-    uploadFileRecieve: (formData: FormData) => axios.post<Blob>(`/ActivityFile/GetReport`, formData,
-    {
+  uploadFileRecieve: (formData: FormData) =>
+    axios.post<Blob>(`/ActivityFile/GetReport`, formData, {
       headers: {
-        'Content-Disposition': "attachment; filename=KoReport.xlsx; filename*=UTF-8''KoReport.xlsx",
+        "Content-Disposition":
+          "attachment; filename=KoReport.xlsx; filename*=UTF-8''KoReport.xlsx",
       },
-      responseType: 'blob'
+      responseType: "blob",
     }),
 
   // uploadFile: (file: FormData) => {
