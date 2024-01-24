@@ -27,7 +27,7 @@ const ActivityData = () => {
       getActivityDetail(id);
       console.log(activityDetail);
     }
-  }, []);
+  }, [activityDetail, getActivityDetail, id]);
 
   const editButtonHandler = () => {
     setShowEditForm(!showEditForm);

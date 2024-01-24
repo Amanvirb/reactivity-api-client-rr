@@ -10,18 +10,17 @@ import {
   registerPending,
 } from "../../../app/common/options/sliceOpt";
 import { toast } from "react-toastify";
-import { error } from "console";
 
 interface AccountState {
   user: User | null;
   accountStatus: string;
-  error: string;
+  // formError: string | null;
 }
 
 const initialState: AccountState = {
   user: null,
   accountStatus: idle,
-  error: "",
+  // formError: "",
 };
 
 export const registerUser = createAsyncThunk<void, FieldValues>(
@@ -160,8 +159,6 @@ export const accountSlice = createSlice({
       state.accountStatus = idle;
     });
     builder.addCase(signInUser.rejected, (state, action) => {
-      console.log("erroor at rejection is::", JSON.stringify(action.error));
-      // state.error=action.error;
       state.accountStatus = idle;
     });
 

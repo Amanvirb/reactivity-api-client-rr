@@ -11,6 +11,7 @@ const useEventListner = () => {
 
   const loginHandler = async (values: FieldValues) => {
     await dispatch(signInUser(values));
+    
     //  .then(() => {router.navigate("/activities"); });
   };
   const onPageChangeHandler = (page: number) => {

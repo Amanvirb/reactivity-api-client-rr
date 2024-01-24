@@ -74,12 +74,6 @@ axios.interceptors.response.use(
           router.navigate("/loginform");
           toast.error("Session expired - please login again");
         }
-        if (status === 401) {
-          console.log("errorr data is::", JSON.stringify(data));
-          if(data==="Invalid password") toast.error("Please ensure correct Password");
-          if(data==="Invalid email") toast.error("Please ensure correct Email");
-          router.navigate("/loginform");
-        }
         break;
       case 404:
         router.navigate("/not-found");
@@ -185,10 +179,19 @@ const Profiles = {
     ),
 };
 
+const AppErrors = {
+  get400Error: () => requests.get('buggy/bad-request'),
+  get401Error: () => requests.get('buggy/unauthorised'),
+  get404Error: () => requests.get('buggy/not-found'),
+  get500Error: () => requests.get('buggy/server-error'),
+  getValidationError: () => requests.get('buggy/validation-error')
+}
+
 const agent = {
   Activities,
   Account,
   Profiles,
+  AppErrors
 };
 
 export default agent;
