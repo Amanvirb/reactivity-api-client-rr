@@ -31,6 +31,7 @@ axios.interceptors.request.use((config) => {
 
 axios.interceptors.response.use(
   async (response) => {
+    await sleep(1000);
     // if (process.env.NODE_ENV === "development") await sleep(500);
     const pagination = response.headers["pagination"];
     if (pagination) {
@@ -80,7 +81,7 @@ axios.interceptors.response.use(
         break;
       case 500:
         // store.commonStore.setServerError(data);
-        router.navigate("/server-error");
+        router.navigate("/server-error", { state: { error: data } });
         break;
     }
     return Promise.reject(error);
@@ -180,18 +181,18 @@ const Profiles = {
 };
 
 const AppErrors = {
-  get400Error: () => requests.get('buggy/bad-request'),
-  get401Error: () => requests.get('buggy/unauthorised'),
-  get404Error: () => requests.get('buggy/not-found'),
-  get500Error: () => requests.get('buggy/server-error'),
-  getValidationError: () => requests.get('buggy/validation-error')
-}
+  get400Error: () => requests.get("buggy/bad-request"),
+  get401Error: () => requests.get("buggy/unauthorised"),
+  get404Error: () => requests.get("buggy/not-found"),
+  get500Error: () => requests.get("buggy/server-error"),
+  getValidationError: () => requests.get("buggy/validation-error"),
+};
 
 const agent = {
   Activities,
   Account,
   Profiles,
-  AppErrors
+  AppErrors,
 };
 
 export default agent;

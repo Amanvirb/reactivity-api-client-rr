@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import {
   Box,
@@ -8,40 +8,21 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import useEventListner from "../../app/hooks/useEventListner";
 import { LoadingButton } from "@mui/lab";
 import { commonBtnStyles } from "../../app/common/options/commonBtnStyles";
 import { loginPending } from "../../app/common/options/sliceOpt";
 import useAxios from "../../app/hooks/useAxios";
 import agent from "../../app/api/agent";
-import { signInUser } from "./account/accountSlice";
-import { useAppDispatch } from "../../app/store/configureStore";
 import { router } from "../../app/layout/Routes";
-import { AxiosResponse } from 'axios';
-
-interface FormValidity {
-  email: string;
-  password: string;
-  isEmailInValid: boolean;
-  isPasswordInValid: boolean;
-}
 
 const LoginForm = () => {
-  // const { loginHandler } = useEventListner();
-  const [formValidity, setFormValidity] = useState<FormValidity>({
-    email: "",
-    password: "",
-    isEmailInValid: false,
-    isPasswordInValid: false,
-  });
-  const [isEmailPasswordValid, setIsEmailPasswordValid] = useState(false);
 
   const { accountStatus } = useAxios();
-  const dispatch = useAppDispatch();
 
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors, isValid },
   } = useForm({
     mode: "all",
@@ -60,29 +41,13 @@ const LoginForm = () => {
       router.navigate("/activities");
       return response;
     } catch (error: any) {
-      // if (error.response.data === "Invalid email") {
-      //   if (errors.email) errors.email.message = "Invalid Email";
-      // }
-      // if (error.response.data === "Invalid password")
-      //   if (errors.password) errors.password.message = "Invalid Password";
-
       if (error.response.data === "Invalid email") {
-
-        setFormValidity({
-          email: "Invalid Email",
-          password: "",
-          isEmailInValid: true,
-          isPasswordInValid: false
-        });
+        setError('email', { message: "Invalid email" });
       }
-      if (error.response.data === "Invalid password")
-        setFormValidity({
-          email: "",
-          password: "Invalid Password",
-          isEmailInValid: false,
-          isPasswordInValid: true
-        });
-      // router.navigate("/loginform");
+      if (error.response.data === "Invalid password") {
+        setError('password', { message: "Invalid password" });
+      }
+
       return ({ error: error.data });
     }
 
@@ -122,7 +87,6 @@ const LoginForm = () => {
                 error={!!errors.email}
                 helperText={errors?.email?.message}
               />
-              {formValidity.isEmailInValid && formValidity.email}
               <TextField
                 margin="normal"
                 type="password"
@@ -139,7 +103,6 @@ const LoginForm = () => {
                 error={!!errors.password}
                 helperText={errors?.password?.message}
               />
-              {formValidity.isPasswordInValid && formValidity.password}
               <Box
                 component="div"
                 sx={{
@@ -151,26 +114,6 @@ const LoginForm = () => {
                 <LoadingButton
                   disabled={!isValid}
                   onClick={handleSubmit(loginHandler)}
-                  // onClick={handleSubmit(async (values: FieldValues) => {
-                  //   try {
-                  //     const response = await agent.Account.login(values);
-                  //     localStorage.setItem("token", response.token);
-                  //     localStorage.setItem("currentuser", response.username);
-                  //     console.log("response is::::", response);
-                  //     router.navigate("/activities");
-                  //     return response;
-                  //   } catch (error: any) {
-                  //     console.log("errorr data is::", JSON.stringify(error.response.data));
-                  //     if (error.response.data === "Invalid email") {
-                  //       if (errors.email) errors.email.message = "Invalid Email";
-                  //     }
-                  //     if (error.response.data === "Invalid password")
-                  //       if (errors.password) errors.password.message = "Invalid Password";
-                  //     // router.navigate("/loginform");
-                  //     return ({ error: error.data });
-                  //   }
-
-                  // })}
                   loading={accountStatus === loginPending}
                   type="submit"
                   sx={commonBtnStyles.btnStyle}
@@ -178,7 +121,7 @@ const LoginForm = () => {
                   Login
                 </LoadingButton>
                 {/* <LoadingButton
-                  onClick={handleSubmit(loginHandler1)}
+                  onClick={handleSubmit(forgetPswHandler)}
                   loading={accountStatus === loginPending}
                   type="submit"
                   sx={commonBtnStyles.btnStyle}

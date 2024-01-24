@@ -48,22 +48,22 @@ export const verifyEmail = createAsyncThunk<void, VerifyEmail>(
   }
 );
 
-export const signInUser = createAsyncThunk<User, FieldValues>(
-  "account/signinuser",
-  async (data, thunkAPI) => {
-    try {
-      const response = await agent.Account.login(data);
-      localStorage.setItem("token", response.token);
-      localStorage.setItem("currentuser", response.username);
-      console.log("response is::::", response);
-      router.navigate("/activities");
-      return response;
-    } catch (error: any) {
-      console.log("errorr data is::", JSON.stringify(error));
-      return thunkAPI.rejectWithValue({ error: error.data });
-    }
-  }
-);
+// export const signInUser = createAsyncThunk<User, FieldValues>(
+//   "account/signinuser",
+//   async (data, thunkAPI) => {
+//     try {
+//       const response = await agent.Account.login(data);
+//       localStorage.setItem("token", response.token);
+//       localStorage.setItem("currentuser", response.username);
+//       console.log("response is::::", response);
+//       router.navigate("/activities");
+//       return response;
+//     } catch (error: any) {
+//       console.log("errorr data is::", JSON.stringify(error));
+//       return thunkAPI.rejectWithValue({ error: error.data });
+//     }
+//   }
+// );
 
 export const fetchRefreshToken = createAsyncThunk<User>(
   "account/fetchRefreshToken",
@@ -151,16 +151,16 @@ export const accountSlice = createSlice({
       state.accountStatus = idle;
     });
 
-    builder.addCase(signInUser.pending, (state) => {
-      state.accountStatus = loginPending;
-    });
-    builder.addCase(signInUser.fulfilled, (state, action) => {
-      state.user = action.payload;
-      state.accountStatus = idle;
-    });
-    builder.addCase(signInUser.rejected, (state, action) => {
-      state.accountStatus = idle;
-    });
+    // builder.addCase(signInUser.pending, (state) => {
+    //   state.accountStatus = loginPending;
+    // });
+    // builder.addCase(signInUser.fulfilled, (state, action) => {
+    //   state.user = action.payload;
+    //   state.accountStatus = idle;
+    // });
+    // builder.addCase(signInUser.rejected, (state, action) => {
+    //   state.accountStatus = idle;
+    // });
 
     builder.addCase(fetchRefreshToken.pending, (state) => {
       state.accountStatus = loginPending;

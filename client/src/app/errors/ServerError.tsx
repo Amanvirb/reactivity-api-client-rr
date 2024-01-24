@@ -3,12 +3,12 @@ import { useNavigate, useLocation } from "react-router";
 import { router } from "../layout/Routes";
 
 export default function ServerError() {
-    // const history = useNavigate();
-    // const { state } = useLocation<any>();
+    const history = useNavigate();
+    const { state } = useLocation();
 
     return (
         <Container component={Paper}>
-            {/* {state?.error ? (
+            {state?.error ? (
                 <>
                     <Typography variant='h3' color='error' gutterBottom>{state.error.title}</Typography>
                     <Divider />
@@ -17,7 +17,7 @@ export default function ServerError() {
             ) : (
                 <Typography variant='h5' gutterBottom>Server Error</Typography>
             )}
-            <Button onClick={() => router.navigate('/')}>Go back to the store</Button> */}
+            <Button onClick={() => router.navigate('/')}>Go back to the store</Button>
         </Container>
     )
 }
