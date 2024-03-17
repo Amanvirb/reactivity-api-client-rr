@@ -37,13 +37,11 @@ const ActivityList = () => {
     user,
   } = useAxios();
 
-  const { isMobile, isMediumScreen } = useUtilities();
-
   useEffect(() => {
     if (activityList.items.length <= 0) {
       getActivityList();
     }
-  }, []);
+  }, [activityList.items.length, getActivityList]);
 
   if (activityStatus === pending) return <p>Loading....</p>;
 

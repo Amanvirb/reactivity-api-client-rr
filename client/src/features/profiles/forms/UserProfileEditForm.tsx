@@ -22,14 +22,12 @@ interface Props {
 }
 
 const UserProfileEditForm = ({ editButtonHandler }: Props) => {
-  const [showUserProfileEditForm, setShowUserProfileEditForm] = useState(false);
   const { profileStatus } = useAppSelector((state) => state.profile);
   const { profile } = useAxios();
   const { editUserProfileHandler } = useEventListner();
   const dispatch = useAppDispatch();
   const {
     handleSubmit,
-    formState: { isSubmitting, errors, isValid },
     control,
     setValue,
   } = useForm({
@@ -41,24 +39,14 @@ const UserProfileEditForm = ({ editButtonHandler }: Props) => {
       editButtonHandler();
       dispatch(clearProfileStatus());
     }
-  }, [profileStatus, userProfileUpdateIdle, editButtonHandler]);
+  }, [profileStatus, editButtonHandler, dispatch]);
 
   useEffect(() => {
     if (profile) {
       setValue("displayName", profile.displayName);
       setValue("bio", profile.bio);
     }
-  }, [profile]);
-
-  // const submitHandler = async (data: FieldValues) => {
-  //   try {
-  //     await dispatch(updateUserProfileAsync(data));
-  //     console.log("testingdddd", userProfileUpdateIdle);
-  //     console.log("testingdddd", profileStatus);
-  //   } catch (error) {
-  //     console.log("error", error);
-  //   }
-  // };
+  }, [profile, setValue]);
 
   return (
     <Box

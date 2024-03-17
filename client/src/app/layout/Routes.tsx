@@ -7,9 +7,7 @@ import UserProfile from "../../features/profiles/UserProfilePage";
 import ActivityData from "../../features/activities/dashboard/ActivityData";
 import RegisterForm from "../../features/users/RegisterForm";
 import RegisterConfirm from "../../features/users/RegisterConfirm";
-import AboutUs from "../../features/aboutus/AboutUs";
 import BlogList from "../../features/blog/BlogList";
-import Test from "../../features/activities/dashboard/forms/Test";
 import NotFound from "../errors/NotFound";
 import ServerError from "../errors/ServerError";
 import CommonForms from "../common/forms/checkoutForms/CommonForms";
@@ -17,6 +15,7 @@ import ActivityEditCreateForm from "../../features/activities/dashboard/forms/Ac
 import AddBlogForm from "../../features/blog/forms/AddBlogForm";
 import EditBlogForm from "../../features/blog/forms/EditBlogForm";
 import BlogDetail from "../../features/blog/BlogDetail";
+import Files from "../../features/aboutus/Files";
 
 export const routes: RouteObject[] = [
   {
@@ -24,8 +23,7 @@ export const routes: RouteObject[] = [
     element: <App />,
     children: [
       { path: "/", element: <HomePage /> },
-      { path: "/testing", element: <Test/> },
-      { path: "/aboutus", element: <AboutUs/> },
+      { path: "/files", element: <Files/> },
       { path: "/blog", element: <BlogList/> },
       { path: "/loginform", element: <LoginForm /> },
       { path: "/registerform", element: <RegisterForm /> },
@@ -39,7 +37,6 @@ export const routes: RouteObject[] = [
       { path: "/addblogform", element: <AddBlogForm/> },
       { path: "/editblogform", element: <EditBlogForm/> },
       { path: "/blogdetail/:id", element: <BlogDetail/> },
-      // { path: "/addnewblogpost/:id", element: <AddBlogForm /> },
       { path: "/server-error", element: <ServerError/> },
       { path: "/not-found", element: <NotFound /> },
       { path: "*", element: <NotFound /> },

@@ -1,12 +1,19 @@
 import { useEffect, useState } from "react";
-import { Box, Container, Grid, Paper, TextField, Typography, styled } from "@mui/material";
+import {
+  Box,
+  Container,
+  Grid,
+  Paper,
+  TextField,
+  Typography,
+  styled,
+} from "@mui/material";
 import useAxios from "../../../app/hooks/useAxios";
 import { useParams } from "react-router-dom";
 import ActivityDetailHeader from "./ActivityDetailHeader";
 import ActivityDetailMiddle from "./ActivityDetailMiddle";
 import ActivityDetailRightPane from "./ActivityDetailRightPane";
 import { pending } from "../../../app/common/options/sliceOpt";
-// import ActivityEditForm from "./forms/ActivityEditForms";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -25,7 +32,6 @@ const ActivityData = () => {
   useEffect(() => {
     if (id && activityDetail?.id !== id) {
       getActivityDetail(id);
-      console.log(activityDetail);
     }
   }, [activityDetail, getActivityDetail, id]);
 
@@ -42,7 +48,7 @@ const ActivityData = () => {
         <Container maxWidth="lg">
           <Grid container spacing={4}>
             <Grid item xs={12} md={8}>
-              <Grid container spacing={4} sx={{pb:4}}>
+              <Grid container spacing={4} sx={{ pb: 4 }}>
                 <Grid item xs={12}>
                   <Item>
                     <ActivityDetailHeader
@@ -57,11 +63,7 @@ const ActivityData = () => {
                   </Item>
                 </Grid>
                 <Grid item xs={12}>
-                  <Typography
-                    variant="h5"
-                    textAlign="center"
-                    // sx={{ backgroundColor: "#1976d2", m: 1, color: "#fff" }}
-                  >
+                  <Typography variant="h5" textAlign="center">
                     Here you can chat about this event
                   </Typography>
                   <Item>

@@ -69,11 +69,7 @@ const ActivityDetailHeader = ({ activity }: ActivityProps) => {
           sx={{
             position: "absolute",
             top: isMobile ? 50 : 200,
-            // right:100,
             left: isMobile ? 15 : 30,
-            // top: { xs: 10, sm: 20, md: 30, lg: 80 },
-            // right: { xs: 10, lg: 100 },
-            // left: { xs: 10, lg: 180 },
           }}
         >
           <Typography fontSize={appFontSize} textAlign="left" variant="h6">

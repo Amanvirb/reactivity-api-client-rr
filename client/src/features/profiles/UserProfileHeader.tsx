@@ -4,7 +4,6 @@ import { Profile } from "../../app/models/profile";
 import useAxios from "../../app/hooks/useAxios";
 import { pending } from "../../app/common/options/sliceOpt";
 import CommonButton from "../../app/common/CommonButton";
-import useUtilities from "../../app/hooks/useUtilities";
 
 interface ProfileProps {
   userProfile: Profile;
@@ -19,7 +18,7 @@ const currentUser = localStorage.getItem("currentuser");
 
 const UserProfileHeader = ({ userProfile }: ProfileProps) => {
   const { followBtnHandler, followUnfollowStatus } = useAxios();
-  const {isMobile}=useUtilities();
+
 
   return (
     <Grid container

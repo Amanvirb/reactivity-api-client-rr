@@ -47,11 +47,6 @@ function getAxiosParams(
   params.append("pageNumber", activityList.pagination.currentPage.toString());
   params.append("pageSize", activityList.pagination.itemsPerPage.toString());
   params.append("startDate", activityParams.startDate.toISOString());
-
-  // params.append('orderBy', activityParams.orderBy);
-  // if (activityParams.searchTerm) params.append('searchTerm', activityParams.searchTerm);
-  // if (activityParams.brands.length > 0) params.append('brands', activityParams.brands.toString());
-  // if (activityParams.types.length > 0) params.append('types', activityParams.types.toString());
   return params;
 }
 

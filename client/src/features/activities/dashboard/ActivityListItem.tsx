@@ -27,8 +27,7 @@ const Item1 = styled(Paper)(({ theme }) => ({
 
 export default function ActivityListItem({ activity }: Props) {
   const { user } = useAxios();
-  const { isMobile, isMediumScreen, avatarStyle, avatarStyle1, appFontSize } =
-    useUtilities();
+  const { isMobile, avatarStyle, avatarStyle1, appFontSize } = useUtilities();
 
   return (
     <Item1 elevation={1}>
@@ -74,7 +73,7 @@ export default function ActivityListItem({ activity }: Props) {
               textAlign="left"
               sx={{ pt: 2, pb: 1 }}
             >
-              Host: {activity.hostUsername.toUpperCase()}
+              Host: {activity.hostUsername}
             </Typography>
             {activity.hostUsername === user?.username && (
               <Typography

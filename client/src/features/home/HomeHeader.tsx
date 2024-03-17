@@ -3,11 +3,6 @@ import { Grid, Typography } from "@mui/material";
 import HomeCategoryCard from "./HomeCategoryCard";
 import useUtilities from "../../app/hooks/useUtilities";
 
-interface Category {
-  title: string;
-  imgUrl: string;
-}
-
 const category = [
   { title: "Food", imgUrl: "/" },
   { title: "Culture", imgUrl: "/" },
@@ -18,8 +13,7 @@ const category = [
 ];
 
 const HomeHeader = () => {
-
-  const {isMobile}= useUtilities();
+  const { isMobile } = useUtilities();
 
   return (
     <Grid
@@ -39,16 +33,6 @@ const HomeHeader = () => {
         <Typography variant="body2">Sign in to create an Activity</Typography>
       </Grid>
       <Grid item xs={12} md={6}>
-        {/* <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            p: 2,
-            m:2,
-            flexWrap: "wrap",
-            justifyContent: "flex-start",
-          }}
-        > */}
         <Grid
           container
           direction="row"
@@ -61,7 +45,6 @@ const HomeHeader = () => {
             </Grid>
           ))}
         </Grid>
-        {/* </Box> */}
       </Grid>
     </Grid>
   );

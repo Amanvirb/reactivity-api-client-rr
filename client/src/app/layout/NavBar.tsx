@@ -25,8 +25,6 @@ import CommonButton from "../common/CommonButton";
 function NavBar() {
   const [anchors, setAnchors] = React.useState<[] | HTMLElement[]>([]);
 
-  // const { isMobile, isMediumScreen } = useUtilities();
-
   const { user, fbLoginHandler, accountStatus } = useAxios();
   const dispatch = useAppDispatch();
 
@@ -60,7 +58,6 @@ function NavBar() {
               sx={{
                 width: { xs: 20, md: 50 },
                 display: { xs: "none", md: "flex" },
-                // display: isMediumScreen ? "flex" : "none",
                 mr: 1,
                 justifyContent: "center",
                 alignItems: "center",
@@ -74,7 +71,6 @@ function NavBar() {
             sx={{
               flexGrow: 1,
               display: { xs: "flex", md: "none" },
-              // display: isMediumScreen ? "flex" : "none",
             }}
           >
             <IconButton
@@ -215,7 +211,7 @@ function NavBar() {
                   variant="h6"
                   sx={{ display: { xs: "flex" }, mr: 1}}
                 >
-                  Hi {user.username.toUpperCase()}
+                  Hi {user.username}
                 </Typography>
 
                 <Tooltip title="Profile">

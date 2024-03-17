@@ -1,13 +1,11 @@
-import { Box, Button, CircularProgress, Stack } from "@mui/material";
+import { Box, CircularProgress, Stack } from "@mui/material";
 import React, { useState } from "react";
 import { Photo, Profile } from "../../app/models/profile";
 import PhotoCameraBackIcon from "@mui/icons-material/PhotoCameraBack";
 import PhotoUploadWidget from "../../app/common/imageUpload/PhotoUploadWidget";
 import useAxios from "../../app/hooks/useAxios";
-import UserEventsCards from "./UserEventsCard";
 import UserPhotosCard from "./UserPhotosCard";
 import { userPhotoUploadPending } from "../../app/common/options/sliceOpt";
-import { LoadingButton } from "@mui/lab";
 import CommonButton from "../../app/common/CommonButton";
 
 interface ProfileProps {
@@ -18,7 +16,7 @@ const UserProfilePhotos = ({ userProfile }: ProfileProps) => {
   const [loading, setLoading] = useState(false);
   const [addPhoto, setAddPhoto] = useState(false);
 
-  const { userPhotoUploadHandler, status, deleteUserPhototHandler, user } =
+  const { userPhotoUploadHandler, status, user } =
     useAxios();
 
   const addPhotoHandler = () => {

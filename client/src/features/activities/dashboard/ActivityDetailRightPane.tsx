@@ -2,9 +2,8 @@ import React from "react";
 import { Box, Typography } from "@mui/material";
 import ImageAvatar from "../../../app/components/ImageAvatar";
 import { ActivityAttendee, ActivityDetail } from "../../../app/models/activity";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import useDispatchReducer from "../../../app/hooks/useDispatchReducer";
-import { idle, pending } from "../../../app/common/options/sliceOpt";
+import { idle } from "../../../app/common/options/sliceOpt";
 import { Link } from "react-router-dom";
 import useUtilities from "../../../app/hooks/useUtilities";
 interface ActivityProps {

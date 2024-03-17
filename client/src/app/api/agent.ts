@@ -1,12 +1,5 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { User } from "../models/account";
-// import { toast } from 'react-toastify';
-// import { history } from '../..';
-// import { Activity, ActivityFormValues } from '../models/activity';
-// import { PaginatedResponse } from '../models/pagination';
-// import { Photo, Profile, UserActivity } from '../models/profile';
-// import { User, UserFormValues } from '../models/user';
-// import { store } from '../stores/store';
 import { Activity, ActivityDetail } from "../models/activity";
 import { PaginatedResponse } from "../models/pagination";
 import { Photo, Profile, UserActivity } from "../models/profile";
@@ -20,8 +13,6 @@ const sleep = (delay: number) => {
 };
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
-
-// const dispatch = useAppDispatch();
 
 axios.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
@@ -69,7 +60,6 @@ axios.interceptors.response.use(
             'Bearer error="invalid_token"'
           )
         ) {
-          // dispatch(signOut());
           localStorage.removeItem("token");
           localStorage.removeItem("currentuser");
           router.navigate("/loginform");
@@ -80,7 +70,6 @@ axios.interceptors.response.use(
         router.navigate("/not-found");
         break;
       case 500:
-        // store.commonStore.setServerError(data);
         router.navigate("/server-error", { state: { error: data } });
         break;
     }
@@ -91,7 +80,6 @@ axios.interceptors.response.use(
 const responseBody = <T>(response: AxiosResponse<T>) => response.data;
 
 const requests = {
-  // get: (url: string, params?: URLSearchParams) => axios.get(url, {params}).then(responseBody),
   get: <T>(url: string) => axios.get<T>(url).then(responseBody),
   post: <T>(url: string, body: {}) =>
     axios.post<T>(url, body).then(responseBody),
@@ -106,39 +94,26 @@ const Activities = {
     requests.put<void>(`/activities/${activity.id}`, activity),
   getActivityList: (params: URLSearchParams) =>
     axios.get<Activity[]>("/activities", { params }).then(responseBody),
-
   getActivityDetail: (id: string) =>
     requests.get<ActivityDetail>(`/activities/${id}`),
-
   activityAttend: (id: string) =>
     requests.post<void>(`/activities/${id}/attend`, {}),
-
   deleteActivity: (id: string) => requests.del<void>(`/activities/${id}`),
-  // attend: (id: string) => requests.post<void>(`/activities/${id}/attend`, {}),
-
   uploadFile: (formData: FormData) =>
     axios.post<void>(`/ActivityFile/SaveReport`, formData, {
       headers: {
         "Content-Disposition":
-          "attachment; filename=KoReport.xlsx; filename*=UTF-8''KoReport.xlsx",
+          "attachment; filename=OrderReport.xlsx; filename*=UTF-8''OrderReport.xlsx",
       },
     }),
   uploadFileRecieve: (formData: FormData) =>
     axios.post<Blob>(`/ActivityFile/GetReport`, formData, {
       headers: {
         "Content-Disposition":
-          "attachment; filename=KoReport.xlsx; filename*=UTF-8''KoReport.xlsx",
+          "attachment; filename=OrderReport.xlsx; filename*=UTF-8''OrderReport.xlsx",
       },
       responseType: "blob",
     }),
-
-  // uploadFile: (file: FormData) => {
-  //   let formData = new FormData();
-  //   formData.append("File", file);
-  //   return axios.post("/ActivityFile/SaveReport", file, {
-  //     headers: { "Content-type": "multipart/form-data" },
-  //   });
-  // },
 };
 
 const Account = {

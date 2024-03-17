@@ -33,18 +33,9 @@ const ActivityEditCreateForm = () => {
 
   const { clearActivityDetailHandler } = useDispatchReducer();
 
-  const { control, formState, handleSubmit, setValue, reset } = useForm({
+  const { control, handleSubmit, setValue } = useForm({
     mode: "all",
   });
-
-  // useEffect(() => {
-  //   if (id && activityDetail?.id === "") {
-  //     getActivityDetail(id);
-  //   }
-  //   return () => {
-  //     id = undefined;
-  //   };
-  // }, [id, activityDetail]);
 
   useEffectOnce(() => {
     if (id && activityDetail?.id !== id) {
@@ -54,7 +45,6 @@ const ActivityEditCreateForm = () => {
 
   useEffectOnce(() => {
     if (id && activityDetail && activityDetail?.id === id) {
-      console.log("If Block ", activityDetail.date);
       setValue("id", activityDetail.id);
       setValue("title", activityDetail.title);
       setValue("date", parseISO(activityDetail.date.toString()));
@@ -75,23 +65,6 @@ const ActivityEditCreateForm = () => {
       clearActivityDetailHandler();
     }
   });
-
-  // useEffect(() => {
-  //   if (id && activityDetail && activityDetail.id) {
-  //     console.log("If Block ", activityDetail.date);
-  //     setValue("id", activityDetail.id);
-  //     setValue("title", activityDetail.title);
-  //     setValue("date", parseISO(activityDetail.date.toString()));
-  //     setValue("description", activityDetail.description);
-  //     setValue("category", activityDetail.category);
-  //     setValue("city", activityDetail.city);
-  //     setValue("venue", activityDetail.venue);
-  //   } else {
-  //     console.log("ELSE Block");
-  //     setValue("id", uuidv4());
-  //     setValue("date", new Date());
-  //   }
-  // }, [activityDetail, id]);
 
   const submitHandler = (data: FieldValues) => {
     const newData = { ...data, date: new Date(data.date).toISOString() };

@@ -7,7 +7,7 @@ import { Blog } from "../../app/models/blog";
 import BlogListCard from "./BlogListCard";
 
 const BlogList = () => {
-  const { blogList, loading } = useAxios();
+  const { blogList } = useAxios();
 
   return (
     <Box component="div" sx={{ m: 6 }}>

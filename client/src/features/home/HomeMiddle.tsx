@@ -61,28 +61,13 @@ const HomeMiddle = () => {
         <Typography align="center" variant="h4">
           Lorem ipsum dolor sit amet,
         </Typography>
-        {/* <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            m: 2,
-            backgroundColor: "#f1f1f1",
-            justifyContent:"center"
-          }}
-        > */}
-        <Grid
-          container
-          direction="row"
-          justifyContent="center"
-        
-        >
+        <Grid container direction="row" justifyContent="center">
           {story.map((s, index) => (
             <Grid item xs={6} md={3} key={index}>
               <HomeStoryCard title={s} />
             </Grid>
           ))}
         </Grid>
-        {/* </Box> */}
       </Box>
     </React.Fragment>
   );

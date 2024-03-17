@@ -1,19 +1,13 @@
 import React from "react";
 import {
   Card,
-  CardHeader,
-  Avatar,
   CardContent,
   Typography,
-  CardMedia,
 } from "@mui/material";
 import FoodBankIcon from "@mui/icons-material/FoodBank";
 import CabinIcon from "@mui/icons-material/Cabin";
 import HeadphonesIcon from "@mui/icons-material/Headphones";
 import DepartureBoardIcon from "@mui/icons-material/DepartureBoard";
-import TheatersIcon from "@mui/icons-material/Theaters";
-import LocalBarIcon from "@mui/icons-material/LocalBar";
-import { Link } from "react-router-dom";
 import useUtilities from "../../app/hooks/useUtilities";
 
 interface CategoryProps {

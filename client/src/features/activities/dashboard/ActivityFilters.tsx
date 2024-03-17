@@ -1,12 +1,11 @@
 import styled from "@emotion/styled";
 import { Paper, Box, Grid, Typography } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import useDispatchReducer from "../../../app/hooks/useDispatchReducer";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
-import { useForm } from "react-hook-form";
 import useUtilities from "../../../app/hooks/useUtilities";
 
 const Item = styled(Paper)(() => ({
@@ -18,28 +17,14 @@ const ActivityFilters = () => {
   const { filtersHandler, filteredDateHandler } = useDispatchReducer();
   const { appFontSize } = useUtilities();
   const { isMobile } = useUtilities();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    control,
-  } = useForm({
-    mode: "all",
-    reValidateMode: "onChange",
-    defaultValues: {
-      appDate: new Date(),
-    },
-  });
 
   return (
-    // <Box component={"div"}  sx={{ mt: 1.5 }}>
     <Grid container>
       <Grid item xs={12}>
         <Box
           sx={{
             display: "flex",
             alignItems: "center",
-            // p: 1.5,
             borderBottom: "2px solid #D3D3D3",
           }}
         >
@@ -106,7 +91,6 @@ const ActivityFilters = () => {
         </Item>
       </Grid>
     </Grid>
-    // </Box>
   );
 };
 

@@ -10,16 +10,11 @@ import {
   Chip,
   Typography,
 } from "@mui/material";
-// import dk from '../../assets/dk.svg';
-// import gb from '../../assets/gb.svg';
-// import de from '../../assets/de.svg';
 import CallIcon from "@mui/icons-material/Call";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
-// import certificate from "../../assets/certificate.png";
 
 const styles = {
   footerContainer: {
-    // maxWidth: 1200,
     margin: "0 auto",
     padding: 40,
   },
@@ -27,7 +22,7 @@ const styles = {
 
 export default function AppFooter() {
   return (
-    <Box sx={{width:"100%", backgroundColor: "#bfbfbf", m:8}}>
+    <Box sx={{ width: "100%", backgroundColor: "#bfbfbf", m: 8 }}>
       <Box style={styles.footerContainer}>
         <Grid
           container
@@ -40,11 +35,6 @@ export default function AppFooter() {
               sx={{ maxWidth: 400, height: "100%", backgroundColor: "inherit" }}
               elevation={0}
             >
-              <CardHeader
-              // avatar={
-              //     <Avatar variant="square" alt='Denmark' src={dk} />
-              // }
-              />
               <CardContent>
                 <Typography variant="h6" color="text.secondary">
                   <strong> Company Name</strong>
@@ -58,10 +48,11 @@ export default function AppFooter() {
                   <br />
                   Country
                 </Typography>
-                <Chip size="small" icon={<CallIcon />} label="+00 000 000 000" />
-                {/* <Button size="small" startIcon={<CallIcon />}>
-                                    +00 000 000 000
-                                </Button> */}
+                <Chip
+                  size="small"
+                  icon={<CallIcon />}
+                  label="+00 000 000 000"
+                />
                 <Typography variant="h6" color="text.secondary">
                   <strong>Office hours:</strong>
                 </Typography>
@@ -82,11 +73,6 @@ export default function AppFooter() {
               sx={{ maxWidth: 400, height: "100%", backgroundColor: "inherit" }}
               elevation={0}
             >
-              <CardHeader
-              // avatar={
-              //     <Avatar variant="square" alt='England' src={gb} />
-              // }
-              />
               <CardContent>
                 <Typography variant="h6" color="text.secondary">
                   <strong> Company Name</strong>
@@ -114,11 +100,6 @@ export default function AppFooter() {
               sx={{ maxWidth: 400, height: "100%", backgroundColor: "inherit" }}
               elevation={0}
             >
-              <CardHeader
-              // avatar={
-              //     <Avatar variant="square" alt='Deutschland' src={de} />
-              // }
-              />
               <CardContent>
                 <Typography variant="h6" color="text.secondary">
                   <strong>Office NAme</strong>
@@ -166,21 +147,11 @@ export default function AppFooter() {
                   </Typography>
                 }
               />
-              <CardMedia
-                component="img"
-                // image={certificate}
-                alt="certificates"
-              />
+              <CardMedia component="img" alt="certificates" />
             </Card>
           </Grid>
         </Grid>
       </Box>
-      {/* <Grid container padding={2} spacing={{ xs: 2, md: 3 }} sx={{backgroundColor: '#747474'}}>
-                <Grid item xs={12} sm={12} md={12}>
-                    <Typography textAlign={'center'}>Copyright 2022 | Tier 1 Asset ARS Portal</Typography>
-                    
-                </Grid>
-            </Grid> */}
     </Box>
   );
 }

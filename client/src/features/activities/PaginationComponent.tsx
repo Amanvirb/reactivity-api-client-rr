@@ -39,8 +39,7 @@ const PaginationComponent = () => {
       </Typography>
       <Pagination
         color="secondary"
-        // size={width > smallScreenSize ? "large" : "small"}
-        count={activityList.pagination.totalPages} //total PAge
+        count={activityList.pagination.totalPages} //total Page
         page={currentPageNumber} //current Page Number
         onChange={(e, page) => handlePageChange(page)}
       />
