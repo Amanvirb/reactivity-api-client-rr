@@ -5,6 +5,7 @@ import { PaginatedResponse } from "../models/pagination";
 import { Photo, Profile, UserActivity } from "../models/profile";
 import { router } from "../layout/Routes";
 import { toast } from "react-toastify";
+import { store } from "../store/configureStore";
 
 const sleep = (delay: number) => {
   return new Promise((resolve) => {
@@ -14,11 +15,11 @@ const sleep = (delay: number) => {
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
-axios.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
+axios.interceptors.request.use(config => {
+  const token = store.getState().account.user?.token;
   if (token) config.headers.Authorization = `Bearer ${token}`;
   return config;
-});
+})
 
 axios.interceptors.response.use(
   async (response) => {
@@ -60,8 +61,7 @@ axios.interceptors.response.use(
             'Bearer error="invalid_token"'
           )
         ) {
-          localStorage.removeItem("token");
-          localStorage.removeItem("currentuser");
+          localStorage.removeItem("user");
           router.navigate("/loginform");
           toast.error("Session expired - please login again");
         }

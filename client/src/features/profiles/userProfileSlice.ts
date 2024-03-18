@@ -17,6 +17,7 @@ import {
 } from "../../app/models/profile";
 import { FieldValues } from "react-hook-form";
 import { toast } from "react-toastify";
+import { User } from "../../app/models/account";
 
 interface ProfileState {
   profile: Profile | null;
@@ -41,15 +42,13 @@ const initialState: ProfileState = {
   followingList: [],
 };
 
-const currentUser = localStorage.getItem("currentuser");
+const currentUser: User | null = JSON.parse(localStorage.getItem("user")!);
 
 export const fetchProfileAsync = createAsyncThunk<Profile, string>(
   "profile/fetchprofileAsync",
   async (username, thunkAPI) => {
     try {
       const response = await agent.Profiles.get(username);
-
-      console.log("Profile issss:::", response);
       return response;
     } catch (error: any) {
       return thunkAPI.rejectWithValue({ error: error.data });
@@ -181,17 +180,17 @@ export const userProfileSlice = createSlice({
       if (state.profile && currentUser) {
         const newFollower = {
           bio: "",
-          displayName: currentUser,
+          displayName: currentUser.displayName,
           followersCount: 0,
           following: false,
           followingCount: 0,
           image: "",
-          username: currentUser,
+          username: currentUser.username,
           photos: [],
         };
 
         const itemIndex = state.followingList.findIndex(
-          (x) => x.username === currentUser
+          (x) => x.username === currentUser.username
         );
 
         if (itemIndex === undefined || itemIndex < 0) {

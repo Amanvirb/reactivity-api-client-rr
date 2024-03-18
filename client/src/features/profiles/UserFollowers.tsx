@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import useAxios from "../../app/hooks/useAxios";
 import { Profile, UserPredicate } from "../../app/models/profile";
 import { idle } from "../../app/common/options/sliceOpt";
@@ -10,19 +10,27 @@ interface FollowersProps {
 }
 
 const UserFollowers = ({ username, predicate }: FollowersProps) => {
+  const [loading, setLoading] = useState(true);
   const { followingList, getFollowingList, userFollowingListStatus } =
     useAxios();
 
-  useEffect(() => {
-    if (username) {
-      const data: UserPredicate = {
-        username: username,
-        predicate: predicate,
-      };
-      getFollowingList(data);
-      console.log("followList", followingList);
+  const loadFollowing = useCallback(async () => {
+    try {
+      if (username && loading) {
+        const data: UserPredicate = {
+          username: username,
+          predicate: predicate,
+        };
+        getFollowingList(data);
+      }
+    } catch (error) {
+      console.log(error);
     }
-  }, []);
+  }, [getFollowingList, loading, predicate, username]);
+
+  useEffect(() => {
+    loadFollowing().then(() => setLoading(false));
+  }, [loadFollowing]);
 
   return (
     <Box>

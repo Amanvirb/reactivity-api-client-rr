@@ -48,30 +48,27 @@ export const verifyEmail = createAsyncThunk<void, VerifyEmail>(
   }
 );
 
-// export const signInUser = createAsyncThunk<User, FieldValues>(
-//   "account/signinuser",
-//   async (data, thunkAPI) => {
-//     try {
-//       const response = await agent.Account.login(data);
-//       localStorage.setItem("token", response.token);
-//       localStorage.setItem("currentuser", response.username);
-//       console.log("response is::::", response);
-//       router.navigate("/activities");
-//       return response;
-//     } catch (error: any) {
-//       console.log("errorr data is::", JSON.stringify(error));
-//       return thunkAPI.rejectWithValue({ error: error.data });
-//     }
-//   }
-// );
+export const signInUser = createAsyncThunk<User, FieldValues>(
+  "account/signinuser",
+  async (data, thunkAPI) => {
+    try {
+      const response = await agent.Account.login(data);
+      localStorage.setItem("user", JSON.stringify(response));
+      router.navigate("/");
+      return response;
+    } catch (error: any) {
+      console.log("errorr data is::", JSON.stringify(error));
+      return thunkAPI.rejectWithValue({ error: error.data });
+    }
+  }
+);
 
 export const fetchRefreshToken = createAsyncThunk<User>(
   "account/fetchRefreshToken",
   async (_, thunkAPI) => {
     try {
       const response = await agent.Account.refreshToken();
-      localStorage.setItem("token", response.token);
-      localStorage.setItem("currentuser", response.username);
+      localStorage.setItem("user", JSON.stringify(response));
       return response;
     } catch (error: any) {
       return thunkAPI.rejectWithValue({ error: error.data });
@@ -84,8 +81,8 @@ export const fbSignInUser = createAsyncThunk<User, string>(
   async (accessToken, thunkAPI) => {
     try {
       const response = await agent.Account.fbLogin(accessToken);
-      localStorage.setItem("token", response.token);
-      router.navigate("/activities");
+      localStorage.setItem("user", JSON.stringify(response));
+      router.navigate("/");
       return response;
     } catch (error: any) {
       return thunkAPI.rejectWithValue({ error: error.data });
@@ -96,18 +93,18 @@ export const fbSignInUser = createAsyncThunk<User, string>(
 export const fetchCurrentUser = createAsyncThunk<User>(
   "account/fetchCurrentUser",
   async (_, thunkAPI) => {
+    thunkAPI.dispatch(setUser(JSON.parse(localStorage.getItem("user")!)));
     try {
-      const userDto = await agent.Account.currentUser();
-      localStorage.setItem("token", userDto.token);
-      localStorage.setItem("currentuser", userDto.username);
-      return userDto;
+      const user = await agent.Account.currentUser();
+      localStorage.setItem("user", JSON.stringify(user));
+      return user;
     } catch (error: any) {
       return thunkAPI.rejectWithValue({ error: error.data });
     }
   },
   {
     condition: () => {
-      if (!localStorage.getItem("token")) return false;
+      if (!localStorage.getItem("user")) return false;
     },
   }
 );
@@ -118,20 +115,13 @@ export const accountSlice = createSlice({
   reducers: {
     signOut: (state) => {
       state.user = null;
-      localStorage.removeItem("token");
-      localStorage.removeItem("currentuser");
+      localStorage.removeItem("user");
       router.navigate("/");
     },
 
-    // setUser: (state, action) => {
-    //   let claims = JSON.parse(atob(action.payload.token.split('.')[1]))
-    //   let roles =
-    //     claims['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']
-    //   state.user = {
-    //     ...action.payload,
-    //     roles: typeof roles === 'string' ? [roles] : roles,
-    //   }
-    // },
+    setUser: (state, action) => {
+      state.user = action.payload;
+    },
   },
 
   extraReducers: (builder) => {
@@ -151,16 +141,17 @@ export const accountSlice = createSlice({
       state.accountStatus = idle;
     });
 
-    // builder.addCase(signInUser.pending, (state) => {
-    //   state.accountStatus = loginPending;
-    // });
-    // builder.addCase(signInUser.fulfilled, (state, action) => {
-    //   state.user = action.payload;
-    //   state.accountStatus = idle;
-    // });
-    // builder.addCase(signInUser.rejected, (state, action) => {
-    //   state.accountStatus = idle;
-    // });
+    builder.addCase(signInUser.pending, (state) => {
+      state.accountStatus = loginPending;
+    });
+    builder.addCase(signInUser.fulfilled, (state, action) => {
+      state.user = action.payload;
+      state.accountStatus = idle;
+    });
+    builder.addCase(signInUser.rejected, (state, action) => {
+      localStorage.removeItem("user");
+      state.accountStatus = idle;
+    });
 
     builder.addCase(fetchRefreshToken.pending, (state) => {
       state.accountStatus = loginPending;
@@ -199,12 +190,11 @@ export const accountSlice = createSlice({
       (state, action) => {
         state.user = null;
         state.accountStatus = idle;
-        localStorage.removeItem("token");
-        localStorage.removeItem("currentuser");
+        localStorage.removeItem("user");
         // throw action.error;
       }
     );
   },
 });
 
-export const { signOut } = accountSlice.actions;
+export const { signOut, setUser } = accountSlice.actions;

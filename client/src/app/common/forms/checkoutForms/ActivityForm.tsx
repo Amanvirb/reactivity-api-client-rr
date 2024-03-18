@@ -59,8 +59,7 @@ const ActivityForm = () => {
         </Grid>
         <Grid item xs={12}>
           <AppCheckbox
-            disabled={!formState.isDirty}
-            
+            disabled={!formState.isDirty}            
             name="isCancelled"
             label="Cancel This activity"
             control={control}

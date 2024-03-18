@@ -107,17 +107,29 @@ function NavBar() {
                     key={page.text}
                     onClick={() => handleCloseNavMenu(page.routeId)}
                   >
-                    <Typography variant="body2" textAlign="center">{page.text}</Typography>
+                    <Typography variant="body2" textAlign="center">
+                      {page.text}
+                    </Typography>
                   </MenuItem>
                 ))}
               {user && (
                 <MenuItem onClick={() => dispatch(signOut())}>
-                  <Typography variant="body2" textAlign="center">Logout</Typography>
+                  <Typography variant="body2" textAlign="center">
+                    Logout
+                  </Typography>
                 </MenuItem>
               )}
               {!user && (
                 <Box>
-                  <MenuItem onClick={() => router.navigate("/loginform")}>
+                  <MenuItem
+                    onClick={() =>
+                      router.navigate("/loginform", {
+                        state: {
+                          replace: true,
+                        },
+                      })
+                    }
+                  >
                     <Typography textAlign="center">Login</Typography>
                   </MenuItem>
 
@@ -209,9 +221,9 @@ function NavBar() {
               >
                 <Typography
                   variant="h6"
-                  sx={{ display: { xs: "flex" }, mr: 1}}
+                  sx={{ display: { xs: "flex" }, mr: 1 }}
                 >
-                  Hi {user.username}
+                  Hi {user.username.toUpperCase()}
                 </Typography>
 
                 <Tooltip title="Profile">
@@ -251,7 +263,9 @@ function NavBar() {
                       handleCloseNavMenu(`/userprofile/${user.username}`)
                     }
                   >
-                    <Typography variant="body2" textAlign="center">My Profile</Typography>
+                    <Typography variant="body2" textAlign="center">
+                      My Profile
+                    </Typography>
                   </MenuItem>
                   {/* {profile.map((pr) => (
                     <MenuItem
@@ -262,7 +276,9 @@ function NavBar() {
                     </MenuItem>
                   ))} */}
                   <MenuItem onClick={() => dispatch(signOut())}>
-                    <Typography variant="body2" textAlign="center">Logout</Typography>
+                    <Typography variant="body2" textAlign="center">
+                      Logout
+                    </Typography>
                   </MenuItem>
                 </Menu>
               </Box>

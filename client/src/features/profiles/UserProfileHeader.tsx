@@ -14,18 +14,19 @@ const avatarStyle1 = {
   height: 50,
 };
 
-const currentUser = localStorage.getItem("currentuser");
 
 const UserProfileHeader = ({ userProfile }: ProfileProps) => {
-  const { followBtnHandler, followUnfollowStatus } = useAxios();
+  const { followBtnHandler, followUnfollowStatus, user } = useAxios();
 
-
+  const { username } = user!;
   return (
-    <Grid container
-    sx={{minHeight:300}}
-    direction="row" 
-    justifyContent="flex-start"
-     alignItems="center">
+    <Grid
+      container
+      sx={{ minHeight: 300 }}
+      direction="row"
+      justifyContent="flex-start"
+      alignItems="center"
+    >
       <Grid item xs={12} md={8}>
         <Box
           sx={{
@@ -45,7 +46,14 @@ const UserProfileHeader = ({ userProfile }: ProfileProps) => {
         </Box>
       </Grid>
       <Grid item xs={12} md={4}>
-        <Box sx={{ display: "flex", flexDirection: "column", alignItems:  "center", p: 1}}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            p: 1,
+          }}
+        >
           <Box sx={{ display: "flex", flexDirection: "row", borderBottom: 1 }}>
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <Typography textAlign="center" padding={2}>
@@ -69,10 +77,11 @@ const UserProfileHeader = ({ userProfile }: ProfileProps) => {
               display: "flex",
               justifyContent: "center",
               p: 1,
-              minHeight:90
+              minHeight: 90,
             }}
           >
-            {userProfile && userProfile.username !== currentUser &&
+            {userProfile &&
+              userProfile.username !== username &&
               (followUnfollowStatus === pending ? (
                 <p>Loading...</p>
               ) : (

@@ -21,6 +21,7 @@ import { RegisterForm, User, VerifyEmail } from "../models/account";
 import {
   fbSignInUser,
   registerUser,
+  signInUser,
   verifyEmail,
 } from "../../features/users/account/accountSlice";
 import { FieldValues } from "react-hook-form";
@@ -60,6 +61,9 @@ const useAxios = () => {
     (state) => state.blog
   );
 
+  const loginHandler = async (values: FieldValues) => {
+    dispatch(signInUser(values))
+  }
   const getActivityList = () => {
     dispatch(fetchActivityAsync());
   };
@@ -166,6 +170,7 @@ const useAxios = () => {
     blogStatus,
     loading,
     blog,
+    loginHandler,
     currentBlogHandler,
     updateBlogHandler,
     deleteBlogHandler,

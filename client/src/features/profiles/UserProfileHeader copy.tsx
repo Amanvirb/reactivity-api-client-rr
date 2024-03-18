@@ -14,10 +14,11 @@ const avatarStyle1 = {
   height: 50,
 };
 
-const currentUser = localStorage.getItem("currentuser");
+// const currentUser = localStorage.getItem("user");
 
 const UserProfileHeader = ({ userProfile }: ProfileProps) => {
-  const { followBtnHandler, followUnfollowStatus } = useAxios();
+  const { followBtnHandler, followUnfollowStatus, user } = useAxios();
+  const { username } = user!;
 
   return (
     <Box
@@ -69,7 +70,7 @@ const UserProfileHeader = ({ userProfile }: ProfileProps) => {
             p: 1,
           }}
         >
-          {userProfile.username !== currentUser &&
+          {userProfile.username !== username &&
             (followUnfollowStatus === pending ? (
               <p>Loading...</p>
             ) : (
