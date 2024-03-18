@@ -20,7 +20,7 @@ const HomeMiddle = () => {
         container
         direction="row"
         justifyContent="center"
-        sx={{ m: 8, backgroundColor: "#f1f1f1" }}
+        sx={{ p: '100px 0',  my: .2, backgroundColor: "#f1f1f1" }}
       >
         <Grid item xs={12} md={4}>
           <Box className="gallery">
@@ -53,7 +53,8 @@ const HomeMiddle = () => {
         sx={{
           display: "flex",
           flexDirection: "column",
-          m: 2,
+          my: .2,
+          p: '100px 0',
           backgroundColor: "#f1f1f1",
           width: "100%",
         }}
@@ -61,9 +62,9 @@ const HomeMiddle = () => {
         <Typography align="center" variant="h4">
           Lorem ipsum dolor sit amet,
         </Typography>
-        <Grid container direction="row" justifyContent="center">
+        <Grid container direction="row" justifyContent="center" p={2}  rowSpacing={2}>
           {story.map((s, index) => (
-            <Grid item xs={6} md={3} key={index}>
+            <Grid item xs={12} md={3} key={index}>
               <HomeStoryCard title={s} />
             </Grid>
           ))}

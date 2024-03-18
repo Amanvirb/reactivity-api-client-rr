@@ -22,7 +22,9 @@ const styles = {
 
 export default function AppFooter() {
   return (
-    <Box sx={{ width: "100%", backgroundColor: "#bfbfbf", m: 8 }}>
+    <Box
+      sx={{ width: "100%", backgroundColor: "#bfbfbf", my: 0.2, p: "100px 0 0" }}
+    >
       <Box style={styles.footerContainer}>
         <Grid
           container

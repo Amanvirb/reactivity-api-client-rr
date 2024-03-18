@@ -23,7 +23,7 @@ const UserAbout = ({ userProfile }: ProfileProps) => {
       {!showEditForm ? (
         <Box component="div">
           <Typography padding={2}>
-            Display Name:{userProfile.displayName}
+            Display Name: {userProfile.displayName}
           </Typography>
           <Typography padding={2}>
             Bio: {!userProfile.bio ? "Bio is not available " : userProfile.bio}

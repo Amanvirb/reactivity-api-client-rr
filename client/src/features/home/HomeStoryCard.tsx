@@ -21,8 +21,9 @@ const HomeStoryCard = ({ title }: CategoryProps) => {
   return (
     <Card
       sx={{
-        width: isMobile ? 150 : 250,
-        height: isMobile? 100 : 200,
+        width: isMobile ? '100%' : '90%',
+        maxWidth: 300,
+        minHeight: 200,
         m: '1px auto',
         p: 1,
         textAlign: "center",
