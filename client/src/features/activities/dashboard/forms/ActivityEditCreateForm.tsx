@@ -1,6 +1,6 @@
 import React from "react";
 import { FieldValues, useForm } from "react-hook-form";
-import { Box, Grid, Stack, Typography } from "@mui/material";
+import { Box, Button, Grid, Stack, Typography } from "@mui/material";
 import useAxios from "../../../../app/hooks/useAxios";
 import { useParams } from "react-router-dom";
 import { registerLocale } from "react-datepicker";
@@ -150,12 +150,14 @@ const ActivityEditCreateForm = () => {
             >
               {id ? "Update" : "Create"}
             </LoadingButton>
-            <CommonButton
-              text="Cancel"
-              onClickHandler={() =>
+            <Button
+              onClick={() =>
                 router.navigate(id ? `/activitydetail/${id}` : "/activities")
               }
-            />
+              sx={commonBtnStyles.btnStyle}
+            >
+              Cancel
+            </Button>
           </Stack>
         </Stack>
       </form>
