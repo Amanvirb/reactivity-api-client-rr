@@ -4,23 +4,9 @@ import { useFormContext } from "react-hook-form";
 import AppTextInput from "../../../components/AppTextInput";
 import AppCheckbox from "../../../components/AppCheckbox";
 import { Box } from "@mui/material";
-import { useEffect } from "react";
 
 const ActivityForm = () => {
-  const { control, formState, setValue } = useFormContext();
-  // const {control, formState}=useForm();
-
-  // useEffect(() => {
-  //     setValue("title", "Food");
-  //     setValue("category", "Food");
-  //     setValue("city", "Copenhagen");
-  //     setValue("venue", "Ishoej");
-  //     setValue("country", "Danmark");
-  //     setValue("hostName", "Aman");
-      
-  // }, [setValue]);
-
-
+  const { control, formState } = useFormContext();
 
   return (
     <Box>
@@ -43,23 +29,23 @@ const ActivityForm = () => {
           />
         </Grid>
         <Grid item xs={12}>
-          <AppTextInput control={control} name="category" label="Category" />
+          <AppTextInput control={control} name="category" label="Category" value="" />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <AppTextInput control={control} name="city" label="City" />
+          <AppTextInput control={control} name="city" label="City" value="" />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <AppTextInput control={control} name="venue" label="Venue" />
+          <AppTextInput control={control} name="venue" label="Venue" value="" />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <AppTextInput control={control} name="country" label="Country" />
+          <AppTextInput control={control} name="country" label="Country" value="" />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <AppTextInput control={control} name="hostName" label="Host Name" />
+          <AppTextInput control={control} name="hostName" label="Host Name" value="" />
         </Grid>
         <Grid item xs={12}>
           <AppCheckbox
-            disabled={!formState.isDirty}            
+            disabled={!formState.isDirty}
             name="isCancelled"
             label="Cancel This activity"
             control={control}

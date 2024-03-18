@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Box, Stack } from "@mui/material";
+import { Box, Button, Stack } from "@mui/material";
 import useEventListner from "../../../app/hooks/useEventListner";
 import {
   useAppDispatch,
@@ -11,7 +11,6 @@ import {
   editProfilePending,
   userProfileUpdateIdle,
 } from "../../../app/common/options/sliceOpt";
-import CommonButton from "../../../app/common/CommonButton";
 import { LoadingButton } from "@mui/lab";
 import { commonBtnStyles } from "../../../app/common/options/commonBtnStyles";
 import { clearProfileStatus } from "../userProfileSlice";
@@ -53,12 +52,14 @@ const UserProfileEditForm = ({ editButtonHandler }: Props) => {
       component={"form"}
       onSubmit={handleSubmit(editUserProfileHandler)}
       className="form-container"
+
     >
       <Stack direction="column" alignItems="flex-end" spacing={2}>
         <AppTextInput
           name="displayName"
           label="Display Name"
           control={control}
+          value=""
         />
         <AppTextInput name="bio" label="Bio" control={control} />
         <Stack direction="row" spacing={2}>
@@ -71,11 +72,10 @@ const UserProfileEditForm = ({ editButtonHandler }: Props) => {
           >
             Update
           </LoadingButton>
-          <CommonButton text="Cancel" onClickHandler={editButtonHandler} />
-          <CommonButton
-            text={profileStatus}
-            onClickHandler={editButtonHandler}
-          />
+          <Button
+            onClick={editButtonHandler}
+            sx={commonBtnStyles.btnStyle}
+          >Cancel</Button>
         </Stack>
       </Stack>
     </Box>

@@ -45,13 +45,14 @@ const AddBlogForm = () => {
               label="Description"
               multiline={true}
               rows={10}
+              value=""
             />
           </Grid>
           <Grid item xs={12}>
-            <AppTextInput control={control} name="category" label="Category" />
+            <AppTextInput control={control} name="category" label="Category" value=""/>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <AppTextInput control={control} name="city" label="City" />
+            <AppTextInput control={control} name="city" label="City" value=""/>
           </Grid>
           <Grid item xs={12}>
             <LoadingButton

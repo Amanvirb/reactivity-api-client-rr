@@ -21,9 +21,11 @@ import FacebookLogin from "@greatsumini/react-facebook-login";
 import { pending } from "../common/options/sliceOpt";
 import { Link, NavLink } from "react-router-dom";
 import CommonButton from "../common/CommonButton";
+import { useState } from "react";
 
 function NavBar() {
-  const [anchors, setAnchors] = React.useState<[] | HTMLElement[]>([]);
+ 
+  const [anchors, setAnchors] = useState<[] | HTMLElement[]>([]);
 
   const { user, fbLoginHandler, accountStatus } = useAxios();
   const dispatch = useAppDispatch();

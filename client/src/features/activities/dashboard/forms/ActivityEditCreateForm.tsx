@@ -7,7 +7,6 @@ import { registerLocale } from "react-datepicker";
 import es from "date-fns/locale/es";
 import AppCheckbox from "../../../../app/components/AppCheckbox";
 import AppTextInput from "../../../../app/components/AppTextInput";
-import CommonButton from "../../../../app/common/CommonButton";
 import { LoadingButton } from "@mui/lab";
 import { editCreateActivityPending } from "../../../../app/common/options/sliceOpt";
 import { commonBtnStyles } from "../../../../app/common/options/commonBtnStyles";
