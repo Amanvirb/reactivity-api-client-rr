@@ -13,7 +13,7 @@ import { ActivityDetail } from "../../../app/models/activity";
 import { format } from "date-fns";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CircularProgress from "@mui/material/CircularProgress";
-import useUtilities from "../../../app/hooks/useUtilities";
+import TwoColumnLoadingSkelton from "../../../app/components/TwoColumnLoadingSkelton";
 
 const Item = styled(Paper)(() => ({
   padding: 1,
@@ -43,7 +43,7 @@ const ActivityList = () => {
     }
   }, [activityList.items.length, getActivityList]);
 
-  if (activityStatus === pending) return <p>Loading....</p>;
+  if (activityStatus === pending) return <TwoColumnLoadingSkelton leftCol={4} rightCol={8} times={2}/>
 
   return (
     <Box component={"div"} sx={{ m: 6 }}>
