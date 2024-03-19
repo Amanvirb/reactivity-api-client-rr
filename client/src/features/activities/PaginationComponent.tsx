@@ -16,12 +16,13 @@ const PaginationComponent = () => {
     setCurrentPageNumber(page);
     onPageChangeHandler(page);
   }
-
+  
   return (
     <Box
       sx={{
         display: "flex",
         alignItems: "center",
+        justifyContent: "flex-end",
         p: 2,
       }}
     >

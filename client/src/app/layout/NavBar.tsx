@@ -225,7 +225,7 @@ function NavBar() {
                   variant="h6"
                   sx={{ display: { xs: "flex" }, mr: 1 }}
                 >
-                  Hi {user.username.toUpperCase()}
+                  Hi {user.username?.toUpperCase()}
                 </Typography>
 
                 <Tooltip title="Profile">

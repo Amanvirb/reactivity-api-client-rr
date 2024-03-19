@@ -11,7 +11,7 @@ interface ActivityProps {
 }
 
 const ActivityDetailMiddle = ({ activity }: ActivityProps) => {
-  const {appFontSize}=useUtilities();
+  const { appFontSize } = useUtilities();
   return (
     <>
       <Box

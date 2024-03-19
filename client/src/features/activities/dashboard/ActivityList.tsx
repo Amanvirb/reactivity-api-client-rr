@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Grid, Paper, Tooltip, Typography, styled } from "@mui/material";
 import ActivityListItem from "./ActivityListItem";
 import useAxios from "../../../app/hooks/useAxios";
@@ -29,6 +29,7 @@ const Item1 = styled(Paper)(() => ({
 }));
 
 const ActivityList = () => {
+  const [isLoaded, setIsLoaded] = useState(false);
   const {
     deleteActivityAsyncHandler,
     getActivityList,
@@ -38,12 +39,14 @@ const ActivityList = () => {
   } = useAxios();
 
   useEffect(() => {
-    if (activityList.items.length <= 0) {
+    if (!isLoaded) {
       getActivityList();
+      setIsLoaded(true);
     }
-  }, [activityList.items.length, getActivityList]);
+  }, [getActivityList, isLoaded]);
 
-  if (activityStatus === pending) return <TwoColumnLoadingSkelton leftCol={4} rightCol={8} times={2}/>
+  if (activityStatus === pending)
+    return <TwoColumnLoadingSkelton leftCol={4} rightCol={8} times={2} />;
 
   return (
     <Box component={"div"} sx={{ m: 6 }}>
@@ -101,8 +104,10 @@ const ActivityList = () => {
             </Box>
           ))}
         </Grid>
+        <Grid item xs={12}>
+          <PaginationComponent />
+        </Grid>
       </Grid>
-      <PaginationComponent />
     </Box>
   );
 };

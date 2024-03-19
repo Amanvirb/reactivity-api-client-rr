@@ -1,12 +1,13 @@
 import styled from "@emotion/styled";
 import { Paper, Box, Grid, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import useDispatchReducer from "../../../app/hooks/useDispatchReducer";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import useUtilities from "../../../app/hooks/useUtilities";
+import useAxios from "../../../app/hooks/useAxios";
 
 const Item = styled(Paper)(() => ({
   textAlign: "center",
@@ -14,10 +15,17 @@ const Item = styled(Paper)(() => ({
 }));
 
 const ActivityFilters = () => {
+  const { activityParams } = useAxios();
   const { filtersHandler, filteredDateHandler } = useDispatchReducer();
   const { appFontSize } = useUtilities();
   const { isMobile } = useUtilities();
 
+  const getSelected = (type: string) => {
+    if (type === "all") return activityParams.all;
+    if (type === "isGoing")
+      return activityParams.isGoing && !activityParams.all;
+    if (type === "isHost") return activityParams.isHost && !activityParams.all;
+  };
   return (
     <Grid container>
       <Grid item xs={12}>
@@ -28,8 +36,10 @@ const ActivityFilters = () => {
             borderBottom: "2px solid #D3D3D3",
           }}
         >
-          <FilterAltIcon sx={{ fontSize: 30 }} />{" "}
-          <Typography variant="h5"> Filters </Typography>
+          <FilterAltIcon sx={{ fontSize: 30 }} />
+          <Typography variant="h5">
+            Filters 
+          </Typography>
         </Box>
         <Box
           onClick={() => filtersHandler("all")}
@@ -45,7 +55,12 @@ const ActivityFilters = () => {
             },
           }}
         >
-          <Typography fontSize={appFontSize}>All activities</Typography>
+          <Typography
+            fontSize={appFontSize}
+            sx={{ fontWeight: getSelected("all") ? 600 : 400 }}
+          >
+            All activities
+          </Typography>
         </Box>
         <Box
           onClick={() => filtersHandler("isGoing")}
@@ -61,7 +76,12 @@ const ActivityFilters = () => {
             },
           }}
         >
-          <Typography fontSize={appFontSize}>I am Going</Typography>
+          <Typography
+            fontSize={appFontSize}
+            sx={{ fontWeight: getSelected("isGoing") ? 600 : 400 }}
+          >
+            I am Going
+          </Typography>
         </Box>
         <Box
           onClick={() => filtersHandler("isHost")}
@@ -77,7 +97,12 @@ const ActivityFilters = () => {
             },
           }}
         >
-          <Typography fontSize={appFontSize}>I am Hosting</Typography>
+          <Typography
+            fontSize={appFontSize}
+            sx={{ fontWeight: getSelected("isHost") ? 600 : 400 }}
+          >
+            I am Hosting
+          </Typography>
         </Box>
       </Grid>
       <Grid item xs={12}>
