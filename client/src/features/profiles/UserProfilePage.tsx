@@ -5,6 +5,7 @@ import UserProfileContainer from "./UserProfileContainer";
 import useAxios from "../../app/hooks/useAxios";
 import { useParams } from "react-router-dom";
 import { idle } from "./../../app/common/options/sliceOpt";
+import TwoColumnLoadingSkelton from "../../app/components/TwoColumnLoadingSkelton";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -26,25 +27,23 @@ const UserProfilePage = () => {
   }, [getUserProfile, profile?.username, username]);
 
   return (
-    <Box component={"div"} sx={{ mt: 10 }}>
-      <Container maxWidth={"lg"}>
-        {profile && userProfilestatus === idle ? (
-          <Grid container spacing={4}>
-            <Grid item xs={12}>
-              <Item>
-                <UserProfileHeader userProfile={profile} />
-              </Item>
-            </Grid>
-            <Grid item xs={12}>
-              <Item>
-                <UserProfileContainer userProfile={profile} />
-              </Item>
-            </Grid>
+    <Box>
+      {profile && userProfilestatus === idle ? (
+        <Grid container spacing={4}>
+          <Grid item xs={12}>
+            <Item>
+              <UserProfileHeader userProfile={profile} />
+            </Item>
           </Grid>
-        ) : (
-          <p>Loading..</p>
-        )}
-      </Container>
+          <Grid item xs={12}>
+            <Item>
+              <UserProfileContainer userProfile={profile} />
+            </Item>
+          </Grid>
+        </Grid>
+      ) : (
+        <TwoColumnLoadingSkelton leftCol={1} rightCol={1} times={2} />
+      )}
     </Box>
   );
 };

@@ -14,6 +14,17 @@ const Item = styled(Paper)(() => ({
   color: "#000",
 }));
 
+const filterTxtStl = {
+  display: "flex",
+  alignItems: "center",
+  p: 1.5,
+  borderBottom: "2px solid #D3D3D3",
+  cursor: "pointer",
+  "&:hover": {
+    backgroundColor: "#D3D3D3",
+    opacity: [0.9, 0.8, 0.7],
+  },
+} as const;
 const ActivityFilters = () => {
   const { activityParams } = useAxios();
   const { filtersHandler, filteredDateHandler } = useDispatchReducer();
@@ -21,10 +32,12 @@ const ActivityFilters = () => {
   const { isMobile } = useUtilities();
 
   const getSelected = (type: string) => {
-    if (type === "all") return activityParams.all;
-    if (type === "isGoing")
-      return activityParams.isGoing && !activityParams.all;
-    if (type === "isHost") return activityParams.isHost && !activityParams.all;
+    if (type === "all" && activityParams.all) return 600;
+    if (type === "isGoing" && activityParams.isGoing && !activityParams.all)
+      return 600;
+    if (type === "isHost" && activityParams.isHost && !activityParams.all)
+      return 600;
+    return 400;
   };
   return (
     <Grid container>
@@ -37,69 +50,28 @@ const ActivityFilters = () => {
           }}
         >
           <FilterAltIcon sx={{ fontSize: 30 }} />
-          <Typography variant="h5">
-            Filters 
-          </Typography>
+          <Typography variant="h5">Filters</Typography>
         </Box>
-        <Box
-          onClick={() => filtersHandler("all")}
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            p: 1.5,
-            borderBottom: "2px solid #D3D3D3",
-            cursor: "pointer",
-            "&:hover": {
-              backgroundColor: "#D3D3D3",
-              opacity: [0.9, 0.8, 0.7],
-            },
-          }}
-        >
+        <Box onClick={() => filtersHandler("all")} sx={filterTxtStl}>
           <Typography
             fontSize={appFontSize}
-            sx={{ fontWeight: getSelected("all") ? 600 : 400 }}
+            sx={{ fontWeight: getSelected("all") }}
           >
             All activities
           </Typography>
         </Box>
-        <Box
-          onClick={() => filtersHandler("isGoing")}
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            p: 1.5,
-            borderBottom: "2px solid #D3D3D3",
-            cursor: "pointer",
-            "&:hover": {
-              backgroundColor: "#D3D3D3",
-              opacity: [0.9, 0.8, 0.7],
-            },
-          }}
-        >
+        <Box onClick={() => filtersHandler("isGoing")} sx={filterTxtStl}>
           <Typography
             fontSize={appFontSize}
-            sx={{ fontWeight: getSelected("isGoing") ? 600 : 400 }}
+            sx={{ fontWeight: getSelected("isGoing") }}
           >
             I am Going
           </Typography>
         </Box>
-        <Box
-          onClick={() => filtersHandler("isHost")}
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            p: 1.5,
-            borderBottom: "2px solid #D3D3D3",
-            cursor: "pointer",
-            "&:hover": {
-              backgroundColor: "#D3D3D3",
-              opacity: [0.9, 0.8, 0.7],
-            },
-          }}
-        >
+        <Box onClick={() => filtersHandler("isHost")} sx={filterTxtStl}>
           <Typography
             fontSize={appFontSize}
-            sx={{ fontWeight: getSelected("isHost") ? 600 : 400 }}
+            sx={{ fontWeight: getSelected("isHost") }}
           >
             I am Hosting
           </Typography>

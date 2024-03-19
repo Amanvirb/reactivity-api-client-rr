@@ -49,7 +49,7 @@ const ActivityList = () => {
     return <TwoColumnLoadingSkelton leftCol={4} rightCol={8} times={2} />;
 
   return (
-    <Box component={"div"} sx={{ m: 6 }}>
+    <Box>
       {activityStatus === idle && activityList.items.length < 1 && (
         <p>Data not found...</p>
       )}

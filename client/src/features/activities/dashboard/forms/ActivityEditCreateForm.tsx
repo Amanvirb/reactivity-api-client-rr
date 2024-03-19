@@ -76,88 +76,86 @@ const ActivityEditCreateForm = () => {
   };
 
   return (
-    <Box component={"div"} sx={{ m: "80px auto", width: 700 }}>
+    <Box component={"div"} sx={{ m: "0 auto", maxWidth: 700 }}>
       <form onSubmit={handleSubmit(submitHandler)}>
-        <Stack direction="column" alignItems="flex-start" spacing={2}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} sm={12}>
-              <Typography marginBottom={5} variant="h6" gutterBottom>
-                {id ? "Edit Activity" : "Create Activity"}
-              </Typography>
-              <AppTextInput
-                value={activityDetail?.title}
-                control={control}
-                name="title"
-                label="Title"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <AppTextInput
-                value={activityDetail?.description}
-                control={control}
-                name="description"
-                label="Description"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <AppTextInput
-                value={activityDetail?.category}
-                control={control}
-                name="category"
-                label="Category"
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <AppTextInput
-                value={activityDetail?.city}
-                control={control}
-                name="city"
-                label="City"
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <AppTextInput
-                value={activityDetail?.venue}
-                control={control}
-                name="venue"
-                label="venue"
-              />
-            </Grid>
-            {id && (
-              <Grid item xs={12}>
-                <AppCheckbox
-                  chekedValue={
-                    activityDetail ? activityDetail.isCancelled : false
-                  }
-                  name="isCancelled"
-                  label="Cancel this activity"
-                  control={control}
-                />
-              </Grid>
-            )}
-            <Grid item xs={12} sm={6}>
-              <AppDateInput name="date" label="Date" control={control} />
-            </Grid>
+        <Grid container spacing={3}>
+          <Grid item xs={12} sm={12}>
+            <Typography marginBottom={5} variant="h6" gutterBottom>
+              {id ? "Edit Activity" : "Create Activity"}
+            </Typography>
+            <AppTextInput
+              value={activityDetail?.title}
+              control={control}
+              name="title"
+              label="Title"
+            />
           </Grid>
-          <Stack direction="row" spacing={2}>
-            <LoadingButton
-              loading={activityStatus.includes(editCreateActivityPending)}
-              variant="contained"
-              type="submit"
-              size="small"
-              sx={commonBtnStyles.btnStyle}
-            >
-              {id ? "Update" : "Create"}
-            </LoadingButton>
-            <Button
-              onClick={() =>
-                router.navigate(id ? `/activitydetail/${id}` : "/activities")
-              }
-              sx={commonBtnStyles.btnStyle}
-            >
-              Cancel
-            </Button>
-          </Stack>
+          <Grid item xs={12}>
+            <AppTextInput
+              value={activityDetail?.description}
+              control={control}
+              name="description"
+              label="Description"
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <AppTextInput
+              value={activityDetail?.category}
+              control={control}
+              name="category"
+              label="Category"
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <AppTextInput
+              value={activityDetail?.city}
+              control={control}
+              name="city"
+              label="City"
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <AppTextInput
+              value={activityDetail?.venue}
+              control={control}
+              name="venue"
+              label="venue"
+            />
+          </Grid>
+          {id && (
+            <Grid item xs={12}>
+              <AppCheckbox
+                chekedValue={
+                  activityDetail ? activityDetail.isCancelled : false
+                }
+                name="isCancelled"
+                label="Cancel this activity"
+                control={control}
+              />
+            </Grid>
+          )}
+          <Grid item xs={12} sm={6}>
+            <AppDateInput name="date" label="Date" control={control} />
+          </Grid>
+        </Grid>
+        <Stack direction="row" spacing={2}>
+          <LoadingButton
+            loading={activityStatus.includes(editCreateActivityPending)}
+            variant="contained"
+            type="submit"
+            size="small"
+            sx={commonBtnStyles.btnStyle}
+          >
+            {id ? "Update" : "Create"}
+          </LoadingButton>
+          <Button
+            onClick={() =>
+              router.navigate(id ? `/activitydetail/${id}` : "/activities")
+            }
+            sx={commonBtnStyles.btnStyle}
+          >
+            Cancel
+          </Button>
         </Stack>
       </form>
     </Box>

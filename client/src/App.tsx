@@ -7,7 +7,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "react-datepicker/dist/react-datepicker.css";
 import "../src/app/layout/style.css";
-import { Container, CssBaseline, ThemeProvider } from "@mui/material";
+import { Box, Container, CssBaseline, ThemeProvider } from "@mui/material";
 import theme from "./app/styles/styles";
 
 function App() {
@@ -34,7 +34,9 @@ function App() {
         <CssBaseline />
         <Container maxWidth="xl">
           <NavBar />
-          <Outlet />
+          <Box component={"div"} sx={{ m: 6 }}>
+            <Outlet />
+          </Box>
           <ToastContainer />
         </Container>
       </ThemeProvider>
