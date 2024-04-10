@@ -295,6 +295,7 @@ export const activitySlice = createSlice({
       }
       //Update selected activity
       if (state.activityDetail) {
+        
         if (!updatedActivity) {
           updatedActivity = {
             ...state.activityDetail,

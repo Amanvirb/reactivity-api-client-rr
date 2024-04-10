@@ -6,5 +6,6 @@ export interface NavBarRoute {
 export const pages: NavBarRoute[] = [
   { text: "Files", routeId: "/files" },
   { text: "Activities", routeId: "/activities" },
+  { text: "Blog", routeId: "/blog" },
 ];
 

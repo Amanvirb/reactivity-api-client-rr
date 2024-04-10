@@ -30,7 +30,7 @@ export default function TwoColumnLoadingSkelton({
         </Grid>
       );
       its.push(
-        <Grid item xs={12} lg={rightCol}>
+        <Grid item key={index} xs={12} lg={rightCol}>
           <Stack spacing={1}>
             <Skeleton />
             <Skeleton variant="circular" width={80} height={80} />

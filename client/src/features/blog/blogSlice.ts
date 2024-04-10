@@ -3,14 +3,14 @@ import { Blog } from "../../app/models/blog";
 import { idle } from "../../app/common/options/sliceOpt";
 import { router } from "../../app/layout/Routes";
 
-interface BlogState {
+interface IBlogState {
   blogList: Blog[];
   blog: Blog | null;
   blogStatus: string;
   loading: boolean;
 }
 
-const initialState: BlogState = {
+const initialState: IBlogState = {
   blogList: [],
   blog: null,
   blogStatus: idle,
@@ -46,7 +46,22 @@ export const blogSlice = createSlice({
       if (itemIndex === undefined || itemIndex < 0) return;
 
       if (itemIndex !== undefined) {
-        state.blogList[itemIndex] = action.payload;
+        // state.blogList[itemIndex] = action.payload;
+
+        // let prevData = state.blogList[itemIndex];
+        // prevData = { ...prevData, ...action.payload };
+        // state.blogList[itemIndex] = prevData;
+
+        // let prevBlogList = state.blogList;
+        // prevBlogList[itemIndex] = { ...prevBlogList[itemIndex], ...action.payload };
+        // state.blogList = prevBlogList;
+
+        state.blogList[itemIndex] = {
+          ...state.blogList[itemIndex],
+          // ...action.payload,
+          title: action.payload.title,
+          description: action.payload.description,
+        };
         router.navigate(`/blogdetail/${action.payload.id}`);
       }
     },

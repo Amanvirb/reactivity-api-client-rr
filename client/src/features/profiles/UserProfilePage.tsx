@@ -42,7 +42,7 @@ const UserProfilePage = () => {
           </Grid>
         </Grid>
       ) : (
-        <TwoColumnLoadingSkelton leftCol={1} rightCol={1} times={2} />
+        <p>Loading...</p>
       )}
     </Box>
   );
